@@ -1,20 +1,22 @@
 package com.scottandmarc.opendotareborn.app.data.player
 
 import android.util.Log
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import com.scottandmarc.opendotareborn.app.data.player.PlayerMapper.toDomain
 import com.scottandmarc.opendotareborn.app.data.player.PlayerMapper.toLocal
+import com.scottandmarc.opendotareborn.app.data.player.WinLoseMapper.toDomain
+import com.scottandmarc.opendotareborn.app.data.player.WinLoseMapper.toLocal
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
+import com.scottandmarc.opendotareborn.app.domain.entities.WinLose
 import com.scottandmarc.opendotareborn.toolbox.helpers.ResponseCallback
 import com.scottandmarc.opendotareborn.app.domain.gateways.PlayerGateway
-import okhttp3.internal.wait
+import com.scottandmarc.opendotareborn.app.domain.gateways.WinLoseGateway
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PlayerRepository(
     private val playerDao: PlayerDao,
+    private val winLoseDao: WinLoseDao,
     private val service: PlayerEndpoints
 ) : PlayerGateway {
     override fun fetchPlayer(accountId: Int, callback: ResponseCallback<Player>) {
@@ -34,6 +36,26 @@ class PlayerRepository(
         })
     }
 
+    override fun fetchWinLose(accountId: Int, callback: ResponseCallback<WinLose>) {
+        service.fetchWinLose(accountId).enqueue(object : Callback<RemoteWinLose> {
+            override fun onFailure(call: Call<RemoteWinLose>, t: Throwable) {
+                callback.onFailure("${t::class.simpleName}")
+            }
+
+            override fun onResponse(call: Call<RemoteWinLose>, response: Response<RemoteWinLose>) {
+                if (response.body() != null) {
+                    val remoteWinLose: RemoteWinLose = response.body()!!
+                    remoteWinLose.id = accountId
+
+                    callback.onSuccess(remoteWinLose.toDomain())
+                } else {
+                    callback.onFailure(response.message())
+                }
+            }
+        })
+    }
+
+    // Player DAO
     override fun insert(player: Player) {
         playerDao.insert(player.toLocal())
     }
@@ -48,5 +70,22 @@ class PlayerRepository(
 
     override fun count(): Int {
         return playerDao.count()
+    }
+
+    // WinLose DAO
+    override fun insertWinLose(winLose: WinLose) {
+        winLoseDao.insert(winLose.toLocal())
+    }
+
+    override fun deleteWinLose() {
+        winLoseDao.delete()
+    }
+
+    override fun getWinLose(): WinLose {
+        return winLoseDao.getWinLose().toDomain()
+    }
+
+    override fun countWinLose(): Int {
+        return winLoseDao.count()
     }
 }

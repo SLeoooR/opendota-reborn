@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class RemotePlayer(
     @SerializedName("tracked_until")
-    val trackedUntil: String,
+    val trackedUntil: String?,
 
     @SerializedName("solo_competitive_rank")
     val soloCompetitiveRank: Int?,
@@ -13,60 +13,60 @@ data class RemotePlayer(
     val competitiveRank: Int?,
 
     @SerializedName("rank_tier")
-    val rankTier: Int,
+    val rankTier: Int?,
 
     @SerializedName("leaderboard_rank")
     val leaderboardRank: Int?,
 
     @SerializedName("mmr_estimate")
-    val mmrEstimate: RemoteMMREstimate,
+    val mmrEstimate: RemoteMMREstimate?,
 
     @SerializedName("profile") val
-    profile: RemoteProfile,
+    profile: RemoteProfile?,
 ) {
     data class RemoteMMREstimate (
         @SerializedName("estimate")
-        val estimate: Int,
+        val estimate: Int?,
     )
 
     data class RemoteProfile (
         @SerializedName("account_id")
-        val accountId: Int,
+        val accountId: Int?,
 
         @SerializedName("personaname")
-        val personaName: String,
+        val personaName: String?,
 
         @SerializedName("name")
         val name: String?,
 
         @SerializedName("plus")
-        val plus: Boolean,
+        val plus: Boolean?,
 
         @SerializedName("cheese")
-        val cheese: Int,
+        val cheese: Int?,
 
         @SerializedName("steamid")
-        val steamId: String,
+        val steamId: String?,
 
         @SerializedName("avatar")
-        val avatar: String,
+        val avatar: String?,
         @SerializedName("avatarmedium")
-        val avatarMedium: String,
+        val avatarMedium: String?,
 
         @SerializedName("avatarfull")
-        val avatarFull: String,
+        val avatarFull: String?,
 
         @SerializedName("profileurl")
-        val profileURL: String,
+        val profileURL: String?,
 
         @SerializedName("last_login")
-        val lastLogin: String,
+        val lastLogin: String?,
 
         @SerializedName("loccountrycode")
-        val locCountryCode: String,
+        val locCountryCode: String?,
 
         @SerializedName("is_contributor")
-        val isContributor: Boolean,
+        val isContributor: Boolean?,
     )
 }
 

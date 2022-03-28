@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey
 data class LocalPlayer (
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Int?,
 
     @ColumnInfo(name = "tracked_until")
-    val trackedUntil: String,
+    val trackedUntil: String?,
 
     @ColumnInfo(name = "solo_competitive_rank")
     val soloCompetitiveRank: Int?,
@@ -21,61 +21,61 @@ data class LocalPlayer (
     val competitiveRank: Int?,
 
     @ColumnInfo(name = "rank_tier")
-    val rankTier: Int,
+    val rankTier: Int?,
 
     @ColumnInfo(name = "leaderboard_rank")
     val leaderboardRank: Int?,
 
     @Embedded
-    val mmrEstimate: LocalMMREstimate,
+    val mmrEstimate: LocalMMREstimate?,
 
     @Embedded
-    val profile: LocalProfile,
+    val profile: LocalProfile?,
 ) {
     data class LocalMMREstimate (
         @ColumnInfo(name = "estimate")
-        val estimate: Int,
+        val estimate: Int?,
     )
 
     data class LocalProfile (
         @ColumnInfo(name = "account_id")
-        val accountId: Int,
+        val accountId: Int?,
 
         @ColumnInfo(name = "personaname")
-        val personaName: String,
+        val personaName: String?,
 
         @ColumnInfo(name = "name")
         val name: String?,
 
         @ColumnInfo(name = "plus")
-        val plus: Boolean,
+        val plus: Boolean?,
 
         @ColumnInfo(name = "cheese")
-        val cheese: Int,
+        val cheese: Int?,
 
         @ColumnInfo(name = "steamid")
-        val steamId: String,
+        val steamId: String?,
 
         @ColumnInfo(name = "avatar")
-        val avatar: String,
+        val avatar: String?,
 
         @ColumnInfo(name = "avatarmedium")
-        val avatarMedium: String,
+        val avatarMedium: String?,
 
         @ColumnInfo(name = "avatarfull")
-        val avatarFull: String,
+        val avatarFull: String?,
 
         @ColumnInfo(name = "profileurl")
-        val profileURL: String,
+        val profileURL: String?,
 
         @ColumnInfo(name = "last_login")
-        val lastLogin: String,
+        val lastLogin: String?,
 
         @ColumnInfo(name = "loccountrycode")
-        val locCountryCode: String,
+        val locCountryCode: String?,
 
         @ColumnInfo(name = "is_contributor")
-        val isContributor: Boolean,
+        val isContributor: Boolean?,
     )
 }
 

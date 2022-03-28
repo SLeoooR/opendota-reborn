@@ -15,6 +15,11 @@ interface PlayerEndpoints {
     fun fetch(
         @Path("account_id") accountId: Int
     ): Call<RemotePlayer>
+
+    @GET("players/{account_id}/wl")
+    fun fetchWinLose(
+        @Path("account_id") accountId: Int
+    ): Call<RemoteWinLose>
 }
 
 fun createPlayerService(): PlayerEndpoints {
@@ -22,7 +27,6 @@ fun createPlayerService(): PlayerEndpoints {
         .registerTypeAdapter(object : TypeToken<RemotePlayer>() {}.type, PlayerDeserializer())
         .setLenient()
         .create()
-    //val client = Helpers.getUnsafeOkHttpClient()
 
     val interceptor = HttpLoggingInterceptor()
     interceptor.level = HttpLoggingInterceptor.Level.BODY

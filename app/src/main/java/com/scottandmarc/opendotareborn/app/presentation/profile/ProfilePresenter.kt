@@ -1,11 +1,18 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile
 
-class ProfilePresenter : ProfileContract.Presenter {
+import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
+import com.scottandmarc.opendotareborn.app.domain.entities.Player
+
+class ProfilePresenter(
+    private val playerRepository: PlayerRepository
+) : ProfileContract.Presenter {
 
     private var view: ProfileContract.View? = null
+    private lateinit var player: Player
 
     override fun onViewReady(view: ProfileContract.View) {
         this.view = view
+        player = playerRepository.getPlayer()
     }
 
     override fun onViewDetach() {
@@ -13,6 +20,6 @@ class ProfilePresenter : ProfileContract.Presenter {
     }
 
     override fun onBtnSteamIconClick() {
-        view?.displayToast("Steam Icon clicked.")
+        view?.navigateToSteamProfile(player.profile?.profileURL ?: "")
     }
 }

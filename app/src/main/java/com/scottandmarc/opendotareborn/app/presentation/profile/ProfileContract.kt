@@ -6,6 +6,8 @@ import com.scottandmarc.opendotareborn.toolbox.mvp.BaseView
 interface ProfileContract {
     interface View : BaseView {
         fun displayToast(msg: String)
+
+        fun navigateToSteamProfile(profileURL: String)
     }
 
     interface Presenter : BasePresenter<View> {
