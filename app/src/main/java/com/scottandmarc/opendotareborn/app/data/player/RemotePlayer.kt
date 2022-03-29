@@ -21,8 +21,8 @@ data class RemotePlayer(
     @SerializedName("mmr_estimate")
     val mmrEstimate: RemoteMMREstimate?,
 
-    @SerializedName("profile") val
-    profile: RemoteProfile?,
+    @SerializedName("profile")
+    val profile: RemoteProfile?,
 ) {
     data class RemoteMMREstimate (
         @SerializedName("estimate")

@@ -8,6 +8,7 @@ data class Player (
     val leaderboardRank: Int?,
     val mmrEstimate: MMREstimate?,
     val profile: Profile?,
+    val winLose: WinLose,
 ) {
     data class MMREstimate (
         val estimate: Int?,
@@ -27,5 +28,11 @@ data class Player (
         val lastLogin: String?,
         val locCountryCode: String?,
         val isContributor: Boolean?,
+    )
+
+    data class WinLose(
+        val id: Int?,
+        val win: Int,
+        val lose: Int
     )
 }

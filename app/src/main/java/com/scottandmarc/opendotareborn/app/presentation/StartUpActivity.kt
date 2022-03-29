@@ -1,14 +1,14 @@
 package com.scottandmarc.opendotareborn.app.presentation
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.scottandmarc.opendotareborn.di.DependencyInjector
-import com.scottandmarc.opendotareborn.databinding.ActivityStartUpBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.scottandmarc.opendotareborn.app.presentation.getstarted.GetStartedActivity
 import com.scottandmarc.opendotareborn.app.presentation.profile.ProfileActivity
-import kotlin.coroutines.CoroutineContext
+import com.scottandmarc.opendotareborn.databinding.ActivityStartUpBinding
+import com.scottandmarc.opendotareborn.di.DependencyInjector
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class StartUpActivity : AppCompatActivity(), CoroutineScope {
     private val binding: ActivityStartUpBinding by lazy {
@@ -27,7 +27,7 @@ class StartUpActivity : AppCompatActivity(), CoroutineScope {
         launch {
             delay(1000)
             val isPlayerLoggedIn = DependencyInjector.providePlayerRepository(applicationContext).count()
-            // val isPlayerLoggedIn = 0
+
             if (isPlayerLoggedIn == 1) {
                 startActivity(Intent(this@StartUpActivity, ProfileActivity::class.java))
             } else {

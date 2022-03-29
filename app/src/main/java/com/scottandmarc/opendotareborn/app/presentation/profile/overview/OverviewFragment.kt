@@ -2,10 +2,10 @@ package com.scottandmarc.opendotareborn.app.presentation.profile.overview
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.scottandmarc.opendotareborn.databinding.FragmentOverviewBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.squareup.picasso.Picasso
@@ -33,7 +33,8 @@ class OverviewFragment : Fragment(), OverviewContract.View {
 
     private fun initPresenter(context: Context) {
         presenter = OverviewPresenter(
-            DependencyInjector.providePlayerRepository(context)
+            DependencyInjector.providePlayerRepository(context),
+            DependencyInjector.provideHeroesRepository()
         )
         presenter.onViewReady(this)
     }
@@ -60,6 +61,7 @@ class OverviewFragment : Fragment(), OverviewContract.View {
     }
 
     override fun showPlayerWinRate(winRate: Float) {
-        binding.tvPlayerWinRate.text = String.format("%.2f", winRate)
+        val text = "${String.format("%.2f", winRate)}%"
+        binding.tvPlayerWinRate.text = text
     }
 }

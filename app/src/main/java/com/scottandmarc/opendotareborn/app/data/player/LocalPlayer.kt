@@ -31,6 +31,9 @@ data class LocalPlayer (
 
     @Embedded
     val profile: LocalProfile?,
+
+    @Embedded
+    val winLose: LocalWinLose,
 ) {
     data class LocalMMREstimate (
         @ColumnInfo(name = "estimate")
@@ -76,6 +79,14 @@ data class LocalPlayer (
 
         @ColumnInfo(name = "is_contributor")
         val isContributor: Boolean?,
+    )
+
+    data class LocalWinLose(
+        @ColumnInfo(name = "win")
+        val win: Int,
+
+        @ColumnInfo(name = "lose")
+        val lose: Int,
     )
 }
 

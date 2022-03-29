@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.scottandmarc.opendotareborn.databinding.ActivityGetStartedBinding
 import com.scottandmarc.opendotareborn.app.presentation.login.LoginActivity
+import com.scottandmarc.opendotareborn.databinding.ActivityGetStartedBinding
 
 class GetStartedActivity : AppCompatActivity(), GetStartedContract.View {
 

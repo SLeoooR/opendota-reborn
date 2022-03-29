@@ -4,15 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.scottandmarc.opendotareborn.app.data.player.LocalPlayer
-import com.scottandmarc.opendotareborn.app.data.player.LocalWinLose
 import com.scottandmarc.opendotareborn.app.data.player.PlayerDao
-import com.scottandmarc.opendotareborn.app.data.player.WinLoseDao
 
 @Database(
-    version = 6,
-    entities = [LocalPlayer::class, LocalWinLose::class]
+    version = 7,
+    entities = [LocalPlayer::class]
 )
 abstract class OpenDotaRebornDatabase : RoomDatabase() {
 
@@ -41,5 +38,4 @@ abstract class OpenDotaRebornDatabase : RoomDatabase() {
 
     //DAOs
     abstract fun getPlayerDao(): PlayerDao
-    abstract fun getWinLoseDao(): WinLoseDao
 }

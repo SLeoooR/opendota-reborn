@@ -2,17 +2,17 @@ package com.scottandmarc.opendotareborn.app.presentation.login
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
-import com.scottandmarc.opendotareborn.di.DependencyInjector
-import com.scottandmarc.opendotareborn.databinding.ActivityLoginBinding
-import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
 import com.scottandmarc.opendotareborn.app.presentation.profile.ProfileActivity
+import com.scottandmarc.opendotareborn.databinding.ActivityLoginBinding
+import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
     private val binding: ActivityLoginBinding by lazy {
@@ -56,7 +56,10 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     private fun initPresenter() {
-        presenter = LoginPresenter(DependencyInjector.providePlayerRepository(applicationContext))
+        presenter = LoginPresenter(
+            DependencyInjector.providePlayerRepository(applicationContext),
+            DependencyInjector.provideCoroutineScopeProvider()
+        )
     }
 
     override fun navigateToProfile() {
