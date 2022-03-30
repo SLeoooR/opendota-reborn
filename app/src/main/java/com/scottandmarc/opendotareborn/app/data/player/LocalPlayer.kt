@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class LocalPlayer (
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int?,
+    val id: Int,
 
     @ColumnInfo(name = "tracked_until")
     val trackedUntil: String?,
@@ -27,10 +27,10 @@ data class LocalPlayer (
     val leaderboardRank: Int?,
 
     @Embedded
-    val mmrEstimate: LocalMMREstimate?,
+    val mmrEstimate: LocalMMREstimate,
 
     @Embedded
-    val profile: LocalProfile?,
+    val profile: LocalProfile,
 
     @Embedded
     val winLose: LocalWinLose,
@@ -42,34 +42,34 @@ data class LocalPlayer (
 
     data class LocalProfile (
         @ColumnInfo(name = "account_id")
-        val accountId: Int?,
+        val accountId: Int,
 
         @ColumnInfo(name = "personaname")
-        val personaName: String?,
+        val personaName: String,
 
         @ColumnInfo(name = "name")
         val name: String?,
 
         @ColumnInfo(name = "plus")
-        val plus: Boolean?,
+        val plus: Boolean,
 
         @ColumnInfo(name = "cheese")
-        val cheese: Int?,
+        val cheese: Int,
 
         @ColumnInfo(name = "steamid")
-        val steamId: String?,
+        val steamId: String,
 
         @ColumnInfo(name = "avatar")
-        val avatar: String?,
+        val avatar: String,
 
         @ColumnInfo(name = "avatarmedium")
-        val avatarMedium: String?,
+        val avatarMedium: String,
 
         @ColumnInfo(name = "avatarfull")
-        val avatarFull: String?,
+        val avatarFull: String,
 
         @ColumnInfo(name = "profileurl")
-        val profileURL: String?,
+        val profileURL: String,
 
         @ColumnInfo(name = "last_login")
         val lastLogin: String?,
@@ -78,7 +78,7 @@ data class LocalPlayer (
         val locCountryCode: String?,
 
         @ColumnInfo(name = "is_contributor")
-        val isContributor: Boolean?,
+        val isContributor: Boolean,
     )
 
     data class LocalWinLose(

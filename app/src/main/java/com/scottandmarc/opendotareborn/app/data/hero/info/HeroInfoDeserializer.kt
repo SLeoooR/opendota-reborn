@@ -1,4 +1,4 @@
-package com.scottandmarc.opendotareborn.app.data.hero
+package com.scottandmarc.opendotareborn.app.data.hero.info
 
 import android.util.Log
 import com.google.gson.GsonBuilder
@@ -7,20 +7,20 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import java.lang.reflect.Type
 
-class HeroesDeserializer : JsonDeserializer<List<RemoteHeroes.RemoteHero>> {
+class HeroInfoDeserializer : JsonDeserializer<List<RemoteHeroInfo>> {
     override fun deserialize(
         json: JsonElement,
         typeOfT: Type?,
         context: JsonDeserializationContext?
-    ): List<RemoteHeroes.RemoteHero> {
+    ): List<RemoteHeroInfo> {
 
         val response = json.asJsonObject
         Log.d("response", "$response")
-        val remoteHeroes = response.asJsonObject
+        val remoteHeroesInfo = response.asJsonObject
 
         val gson = GsonBuilder()
             .create()
 
-        return gson.fromJson(remoteHeroes, Array<RemoteHeroes.RemoteHero>::class.java).toList()
+        return gson.fromJson(remoteHeroesInfo, Array<RemoteHeroInfo>::class.java).toList()
     }
 }

@@ -34,7 +34,8 @@ class OverviewFragment : Fragment(), OverviewContract.View {
     private fun initPresenter(context: Context) {
         presenter = OverviewPresenter(
             DependencyInjector.providePlayerRepository(context),
-            DependencyInjector.provideHeroesRepository()
+            DependencyInjector.providePlayerHeroRepository(),
+            DependencyInjector.provideHeroInfoRepository(context)
         )
         presenter.onViewReady(this)
     }

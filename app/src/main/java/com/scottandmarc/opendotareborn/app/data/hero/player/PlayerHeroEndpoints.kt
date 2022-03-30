@@ -1,4 +1,4 @@
-package com.scottandmarc.opendotareborn.app.data.hero
+package com.scottandmarc.opendotareborn.app.data.hero.player
 
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -10,16 +10,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface HeroesEndpoints {
+interface PlayerHeroesEndpoints {
     @GET("players/{account_id}/heroes")
-    suspend fun fetchHeroes(
+    suspend fun fetchPlayerHeroes(
         @Path("account_id") accountId: Int?
-    ): Response<List<RemoteHeroes.RemoteHero>>
+    ): Response<List<RemotePlayerHero>>
 }
 
-fun createHeroesService(): HeroesEndpoints {
+fun createPlayerHeroService(): PlayerHeroesEndpoints {
     val gson = GsonBuilder()
-        .registerTypeAdapter(object : TypeToken<RemoteHeroes>() {}.type, HeroesDeserializer())
+        .registerTypeAdapter(object : TypeToken<Array<RemotePlayerHero>>() {}.type, PlayerHeroDeserializer())
         .setLenient()
         .create()
 
@@ -34,5 +34,5 @@ fun createHeroesService(): HeroesEndpoints {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
-    return retrofit.create(HeroesEndpoints::class.java)
+    return retrofit.create(PlayerHeroesEndpoints::class.java)
 }

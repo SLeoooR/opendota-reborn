@@ -19,10 +19,10 @@ data class RemotePlayer(
     val leaderboardRank: Int?,
 
     @SerializedName("mmr_estimate")
-    val mmrEstimate: RemoteMMREstimate?,
+    val mmrEstimate: RemoteMMREstimate,
 
     @SerializedName("profile")
-    val profile: RemoteProfile?,
+    val profile: RemoteProfile,
 ) {
     data class RemoteMMREstimate (
         @SerializedName("estimate")
@@ -31,33 +31,34 @@ data class RemotePlayer(
 
     data class RemoteProfile (
         @SerializedName("account_id")
-        val accountId: Int?,
+        val accountId: Int,
 
         @SerializedName("personaname")
-        val personaName: String?,
+        val personaName: String,
 
         @SerializedName("name")
         val name: String?,
 
         @SerializedName("plus")
-        val plus: Boolean?,
+        val plus: Boolean,
 
         @SerializedName("cheese")
-        val cheese: Int?,
+        val cheese: Int,
 
         @SerializedName("steamid")
-        val steamId: String?,
+        val steamId: String,
 
         @SerializedName("avatar")
-        val avatar: String?,
+        val avatar: String,
+
         @SerializedName("avatarmedium")
-        val avatarMedium: String?,
+        val avatarMedium: String,
 
         @SerializedName("avatarfull")
-        val avatarFull: String?,
+        val avatarFull: String,
 
         @SerializedName("profileurl")
-        val profileURL: String?,
+        val profileURL: String,
 
         @SerializedName("last_login")
         val lastLogin: String?,
@@ -66,7 +67,7 @@ data class RemotePlayer(
         val locCountryCode: String?,
 
         @SerializedName("is_contributor")
-        val isContributor: Boolean?,
+        val isContributor: Boolean,
     )
 }
 

@@ -57,8 +57,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     private fun initPresenter() {
         presenter = LoginPresenter(
+            DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(applicationContext),
-            DependencyInjector.provideCoroutineScopeProvider()
+            DependencyInjector.provideHeroInfoRepository(applicationContext),
         )
     }
 
