@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/app_card_color"
+    tools:ignore="HardcodedText">
+    <!--NeedFix-->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPLayerHeroIcon"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/steam_icon"/>
+
+    <TextView
+        android:id="@+id/tvPlayerHeroName"
+        android:text="Keeper of the Light"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tvPlayerHeroMP"
+        android:text="200"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/tvPlayerHeroWR"
+        android:text="55.55%"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/tvPlayerHeroLP"
+        android:text="4 hours"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

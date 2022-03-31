@@ -20,6 +20,6 @@ class ProfilePresenter(
     }
 
     override fun onBtnSteamIconClick() {
-        view?.navigateToSteamProfile(player.profile?.profileURL ?: "")
+        view?.navigateToSteamProfile(player.profile.profileURL)
     }
 }

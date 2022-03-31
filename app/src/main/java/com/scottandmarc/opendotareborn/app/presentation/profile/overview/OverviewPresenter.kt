@@ -4,18 +4,13 @@ import android.util.Log
 import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoRepository
 import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
-import com.scottandmarc.opendotareborn.app.domain.entities.HeroInfo
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.sql.Timestamp
-import java.text.DateFormat.getDateInstance
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.*
 
 class OverviewPresenter(
@@ -36,6 +31,7 @@ class OverviewPresenter(
         scope.launch {
             try {
                 playerHeroes = playerHeroesRepository.fetchHeroes(player.profile.accountId)
+                view.getPlayerHeroesList(playerHeroes)
 
                 for(hero in playerHeroes) {
                     val heroInfo = heroInfoRepository.getHeroInfoWhere(hero.heroId.toInt())
@@ -61,7 +57,6 @@ class OverviewPresenter(
                 t.printStackTrace()
             }
         }
-
         setup()
     }
 

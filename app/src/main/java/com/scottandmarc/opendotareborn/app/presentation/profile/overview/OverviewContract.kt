@@ -1,5 +1,6 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.overview
 
+import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.toolbox.mvp.BasePresenter
 import com.scottandmarc.opendotareborn.toolbox.mvp.BaseView
 
@@ -13,6 +14,8 @@ interface OverviewContract {
         fun showPlayerWins(wins: Int)
         fun showPlayerLosses(losses: Int)
         fun showPlayerWinRate(winRate: Float)
+
+        suspend fun getPlayerHeroesList(playerHeroesList: List<PlayerHero>)
     }
 
     interface Presenter : BasePresenter<View> {
