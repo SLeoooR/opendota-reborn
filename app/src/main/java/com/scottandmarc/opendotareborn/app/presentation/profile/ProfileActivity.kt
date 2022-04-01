@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.scottandmarc.opendotareborn.R
+import com.scottandmarc.opendotareborn.app.presentation.profile.heroes.PlayerHeroesFragment
 import com.scottandmarc.opendotareborn.app.presentation.profile.overview.OverviewFragment
 import com.scottandmarc.opendotareborn.databinding.DrawerNavViewBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
@@ -68,7 +69,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
                     displayToast("Matches clicked.")
                 }
                 R.id.nav_bottom_heroes -> {
-                    displayToast("Heroes clicked.")
+                    fragment = PlayerHeroesFragment()
                 }
                 R.id.nav_bottom_peers -> {
                     displayToast("Peers clicked.")

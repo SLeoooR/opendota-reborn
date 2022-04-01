@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.app.presentation.profile.heroes.PlayerHeroesListAdapter
 import com.scottandmarc.opendotareborn.databinding.FragmentOverviewBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.runBlocking
 
 class OverviewFragment : Fragment(), OverviewContract.View {
 
@@ -21,7 +21,6 @@ class OverviewFragment : Fragment(), OverviewContract.View {
     }
 
     private lateinit var presenter: OverviewContract.Presenter
-    private lateinit var playerHeroList: List<PlayerHero>
     private lateinit var rvPlayerHeroesAdapter: PlayerHeroesListAdapter
 
     override fun onCreateView(
@@ -35,11 +34,11 @@ class OverviewFragment : Fragment(), OverviewContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         initPresenter(view.context)
-        initRv(view.context)
     }
 
     private fun initPresenter(context: Context) {
         presenter = OverviewPresenter(
+            DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(context),
             DependencyInjector.providePlayerHeroRepository(),
             DependencyInjector.provideHeroInfoRepository(context)
@@ -73,24 +72,14 @@ class OverviewFragment : Fragment(), OverviewContract.View {
         binding.tvPlayerWinRate.text = text
     }
 
-    override suspend fun getPlayerHeroesList(playerHeroesList: List<PlayerHero>) {
-        playerHeroList = playerHeroesList
-    }
-
-    private fun initRv(context: Context) {
+    override fun initRv(heroInfoRepository: HeroInfoRepository, playerHeroList: List<PlayerHero>) {
         // Assign RV
         val rvPlayerHeroes = binding.topThreeHeroesLayout.rvPlayerHeroes
 
-        runBlocking {
-            val playerHeroRepository = DependencyInjector.providePlayerHeroRepository()
+        //Init RecyclerView
+        rvPlayerHeroesAdapter = PlayerHeroesListAdapter(heroInfoRepository, playerHeroList, true)
 
-            playerHeroList = playerHeroRepository.fetchHeroes(131405121)
-
-            //Init RecyclerView
-            rvPlayerHeroesAdapter = PlayerHeroesListAdapter(context, playerHeroList, true)
-
-            rvPlayerHeroes.layoutManager = LinearLayoutManager(context)
-            rvPlayerHeroes.adapter = rvPlayerHeroesAdapter
-        }
+        rvPlayerHeroes.layoutManager = LinearLayoutManager(this.context)
+        rvPlayerHeroes.adapter = rvPlayerHeroesAdapter
     }
 }
