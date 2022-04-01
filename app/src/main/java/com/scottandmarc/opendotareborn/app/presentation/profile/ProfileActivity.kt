@@ -15,7 +15,10 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.presentation.profile.heroes.PlayerHeroesFragment
+import com.scottandmarc.opendotareborn.app.presentation.profile.matches.MatchesFragment
 import com.scottandmarc.opendotareborn.app.presentation.profile.overview.OverviewFragment
+import com.scottandmarc.opendotareborn.app.presentation.profile.peers.PeersFragment
+import com.scottandmarc.opendotareborn.app.presentation.profile.totals.TotalsFragment
 import com.scottandmarc.opendotareborn.databinding.DrawerNavViewBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 
@@ -66,16 +69,16 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
                     fragment = OverviewFragment()
                 }
                 R.id.nav_bottom_matches -> {
-                    displayToast("Matches clicked.")
+                    fragment = MatchesFragment()
                 }
                 R.id.nav_bottom_heroes -> {
                     fragment = PlayerHeroesFragment()
                 }
                 R.id.nav_bottom_peers -> {
-                    displayToast("Peers clicked.")
+                    fragment = PeersFragment()
                 }
                 R.id.nav_bottom_totals -> {
-                    displayToast("Totals clicked.")
+                    fragment = TotalsFragment()
                 }
             }
             ftBottomNav.replace(contentFrameId, fragment)
