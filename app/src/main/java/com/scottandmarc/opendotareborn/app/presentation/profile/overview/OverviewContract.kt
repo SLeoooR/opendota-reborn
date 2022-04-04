@@ -1,7 +1,5 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.overview
 
-import android.content.Context
-import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.toolbox.mvp.BasePresenter
 import com.scottandmarc.opendotareborn.toolbox.mvp.BaseView
@@ -17,7 +15,7 @@ interface OverviewContract {
         fun showPlayerLosses(losses: Int)
         fun showPlayerWinRate(winRate: Float)
 
-        fun initRv(heroInfoRepository: HeroInfoRepository, playerHeroList: List<PlayerHero>)
+        fun getPlayerHeroes(playerHeroes: List<PlayerHero>)
     }
 
     interface Presenter : BasePresenter<View> {

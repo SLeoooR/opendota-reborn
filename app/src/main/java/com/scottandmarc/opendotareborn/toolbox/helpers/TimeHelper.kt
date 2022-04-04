@@ -34,7 +34,7 @@ class TimeHelper {
                     // Return Months
                     return "${hours / hoursInMonth} months"
                 }
-                hours < hoursInYear -> {
+                hours < hoursInYear || hours > hoursInYear -> {
                     // Return Years
                     return "${hours / hoursInYear} years"
                 }

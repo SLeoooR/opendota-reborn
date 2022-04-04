@@ -4,13 +4,15 @@ import android.content.Context
 import androidx.room.*
 import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoDao
 import com.scottandmarc.opendotareborn.app.data.hero.info.LocalHeroInfo
+import com.scottandmarc.opendotareborn.app.data.hero.player.LocalPlayerHero
+import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroDao
 import com.scottandmarc.opendotareborn.app.data.player.LocalPlayer
 import com.scottandmarc.opendotareborn.app.data.player.PlayerDao
 import com.scottandmarc.opendotareborn.toolbox.helpers.Converters
 
 @Database(
-    version = 9,
-    entities = [LocalPlayer::class, LocalHeroInfo::class]
+    version = 10,
+    entities = [LocalPlayer::class, LocalHeroInfo::class, LocalPlayerHero::class]
 )
 @TypeConverters(Converters::class)
 abstract class OpenDotaRebornDatabase : RoomDatabase() {
@@ -41,4 +43,5 @@ abstract class OpenDotaRebornDatabase : RoomDatabase() {
     //DAOs
     abstract fun getPlayerDao(): PlayerDao
     abstract fun getHeroInfoDao(): HeroInfoDao
+    abstract fun getPlayerHeroDao(): PlayerHeroDao
 }

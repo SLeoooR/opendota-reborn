@@ -38,9 +38,14 @@ object DependencyInjector {
         )
     }
 
-    fun providePlayerHeroRepository() : PlayerHeroRepository {
+    fun providePlayerHeroRepository(
+        appContext: Context
+    ) : PlayerHeroRepository {
+        val db = OpenDotaRebornDatabase.getDatabase(appContext)
+
         return PlayerHeroRepository(
-            createPlayerHeroService()
+            db.getPlayerHeroDao(),
+            createPlayerHeroService(),
         )
     }
 }

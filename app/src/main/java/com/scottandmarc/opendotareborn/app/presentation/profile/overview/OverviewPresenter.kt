@@ -1,18 +1,13 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.overview
 
-import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoRepository
 import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
-import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
-import kotlinx.coroutines.launch
 
 class OverviewPresenter(
-    private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerRepository: PlayerRepository,
-    private val playerHeroesRepository: PlayerHeroRepository,
-    private val heroInfoRepository: HeroInfoRepository
+    private val playerHeroRepository: PlayerHeroRepository,
 ) : OverviewContract.Presenter {
 
     private var view: OverviewContract.View? = null
@@ -21,20 +16,14 @@ class OverviewPresenter(
 
     override fun onViewReady(view: OverviewContract.View) {
         this.view = view
-        player = playerRepository.getPlayer()
-
-        coroutineScopeProvider.provide().launch {
-            try {
-                playerHeroes = playerHeroesRepository.fetchHeroes(player.profile.accountId)
-                view.initRv(heroInfoRepository, playerHeroes)
-            } catch(t: Throwable) {
-                t.printStackTrace()
-            }
-        }
         setup()
     }
 
     private fun setup() {
+        playerHeroes = playerHeroRepository.getPlayerHeroes()
+        view?.getPlayerHeroes(playerHeroes)
+
+        player = playerRepository.getPlayer()
         view?.showProfilePic(player.profile.avatarFull)
         view?.showPlayerName(player.profile.personaName)
 

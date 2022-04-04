@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.presentation.profile.heroes.PlayerHeroesFragment
@@ -21,6 +20,10 @@ import com.scottandmarc.opendotareborn.app.presentation.profile.peers.PeersFragm
 import com.scottandmarc.opendotareborn.app.presentation.profile.totals.TotalsFragment
 import com.scottandmarc.opendotareborn.databinding.DrawerNavViewBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.LoadingFragment
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 class ProfileActivity : AppCompatActivity(), ProfileContract.View,
     NavigationView.OnNavigationItemSelectedListener {
@@ -30,16 +33,19 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
     }
 
     private lateinit var presenter: ProfileContract.Presenter
+    private lateinit var menuList: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(bindingNavView.root)
 
-        initViews()
         initPresenter()
+        DependencyInjector.provideCoroutineScopeProvider().provide().launch {
+            initViews()
+        }
     }
 
-    private fun initViews() {
+    private suspend fun initViews() {
         // Start Toolbar Views
         setSupportActionBar(bindingNavView.activityProfile.tbProfileView)
         supportActionBar?.title = ""
@@ -52,37 +58,35 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
         bindingNavView.nvLayout.setNavigationItemSelectedListener(this)
         // End Toolbar Views
 
-        // Show Overview Fragment
-        val contentFrameId = bindingNavView.activityProfile.contentFrameProfile.id
-        var fragment: Fragment = OverviewFragment()
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.add(contentFrameId, fragment)
-        ft.commit()
+        loadFragment(LoadingFragment())
+        delay(1000)
+        loadFragment(OverviewFragment())
 
         // Start BottomNavView
         val bottomNav = bindingNavView.activityProfile.bottomNav
         bottomNav.setOnItemSelectedListener {
-            val ftBottomNav: FragmentTransaction = supportFragmentManager.beginTransaction()
-
             when (it.itemId) {
                 R.id.nav_bottom_overview -> {
-                    fragment = OverviewFragment()
+                    showSteamIcon()
+                    loadFragment(OverviewFragment())
                 }
                 R.id.nav_bottom_matches -> {
-                    fragment = MatchesFragment()
+                    loadFragment(MatchesFragment())
+                    hideSteamIcon()
                 }
                 R.id.nav_bottom_heroes -> {
-                    fragment = PlayerHeroesFragment()
+                    loadFragment(PlayerHeroesFragment())
+                    hideSteamIcon()
                 }
                 R.id.nav_bottom_peers -> {
-                    fragment = PeersFragment()
+                    loadFragment(PeersFragment())
+                    hideSteamIcon()
                 }
                 R.id.nav_bottom_totals -> {
-                    fragment = TotalsFragment()
+                    loadFragment(TotalsFragment())
+                    hideSteamIcon()
                 }
             }
-            ftBottomNav.replace(contentFrameId, fragment)
-            ftBottomNav.commit()
             true
         }
         // End Bottom NavView
@@ -97,9 +101,20 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
         }
     }
 
+    private fun loadFragment(fragment: Fragment) {
+        // Show Overview Fragment
+        val contentFrameId = bindingNavView.activityProfile.contentFrameProfile.id
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(contentFrameId, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
     private fun initPresenter() {
         presenter = ProfilePresenter(
-            DependencyInjector.providePlayerRepository(applicationContext)
+            DependencyInjector.provideCoroutineScopeProvider(),
+            DependencyInjector.providePlayerRepository(applicationContext),
+            DependencyInjector.providePlayerHeroRepository(applicationContext)
         )
         presenter.onViewReady(this)
     }
@@ -135,7 +150,19 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuList = menu
         menuInflater.inflate(R.menu.steam_menu, menu)
         return true
+    }
+
+    private fun hideSteamIcon() {
+        val item: MenuItem = menuList.findItem(R.id.steam_profile)
+        item.isVisible = false
+    }
+
+
+    private fun showSteamIcon() {
+        val item: MenuItem = menuList.findItem(R.id.steam_profile)
+        item.isVisible = true
     }
 }

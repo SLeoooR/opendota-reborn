@@ -26,9 +26,12 @@ class StartUpActivity : AppCompatActivity(), CoroutineScope {
 
         launch {
             delay(1000)
-            val isPlayerLoggedIn = DependencyInjector.providePlayerRepository(applicationContext).count()
+            val playerRepository = DependencyInjector.providePlayerRepository(applicationContext)
+
+            val isPlayerLoggedIn = playerRepository.count()
 
             if (isPlayerLoggedIn == 1) {
+                playerRepository.insert(playerRepository.fetchPlayer(playerRepository.getPlayer().profile.accountId))
                 startActivity(Intent(this@StartUpActivity, ProfileActivity::class.java))
             } else {
                 startActivity(Intent(this@StartUpActivity, GetStartedActivity::class.java))
