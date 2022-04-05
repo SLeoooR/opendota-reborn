@@ -6,10 +6,15 @@ import com.scottandmarc.opendotareborn.toolbox.mvp.BaseView
 
 interface PlayerHeroesContract {
     interface View: BaseView {
-        fun getPlayerHeroes(playerHeroes: List<PlayerHero>)
+        fun setPlayerHeroes(playerHeroes: List<PlayerHero>)
+        fun getCurrentPage(): Int
+        fun setCurrentPage(currentPage: Int)
+        fun updateRv()
     }
 
     interface Presenter: BasePresenter<View> {
-
+        fun onPrevBtnClick()
+        fun onNextBtnClick()
+        fun getTotalPages(): Int
     }
 }

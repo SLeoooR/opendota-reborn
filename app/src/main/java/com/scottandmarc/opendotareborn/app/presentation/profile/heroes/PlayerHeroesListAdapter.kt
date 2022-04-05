@@ -48,7 +48,12 @@ class PlayerHeroesListAdapter(
 
             val heroWinRateString = String.format("%.2f", heroWinRate) + "%"
             viewHolder.binding.tvPlayerHeroWR.text = heroWinRateString
-            viewHolder.binding.tvPlayerHeroLP.text = numTimeAgo(playerHero.lastPlayed)
+
+            if (playerHero.games == 0) {
+                viewHolder.binding.tvPlayerHeroLP.text = "N/A"
+            } else {
+                viewHolder.binding.tvPlayerHeroLP.text = numTimeAgo(playerHero.lastPlayed)
+            }
         }
     }
 
@@ -56,7 +61,7 @@ class PlayerHeroesListAdapter(
         return if (fromOverview) {
             3
         } else {
-            20
+            playerHeroesList.size
         }
     }
 }
