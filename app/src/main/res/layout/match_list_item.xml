@@ -19,8 +19,8 @@
         android:src="@drawable/steam_icon"/>
 
     <TextView
-        android:id="@+id/tvPlayerHeroName"
-        android:text="Keeper of the Light"
+        android:id="@+id/tvWinOrLose"
+        android:text="Win"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -30,8 +30,8 @@
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/tvPlayerHeroMP"
-        android:text="200"
+        android:id="@+id/tvKDA"
+        android:text="40/10/13"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -39,8 +39,8 @@
         android:textColor="@color/white"/>
 
     <TextView
-        android:id="@+id/tvPlayerHeroWR"
-        android:text="55.55%"
+        android:id="@+id/tvLength"
+        android:text="103:43"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -48,7 +48,7 @@
         android:textColor="@color/white"/>
 
     <TextView
-        android:id="@+id/tvPlayerHeroLP"
+        android:id="@+id/tvMatchLP"
         android:text="4 hours"
         android:layout_width="0dp"
         android:layout_height="match_parent"

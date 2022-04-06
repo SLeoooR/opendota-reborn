@@ -114,7 +114,8 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
         presenter = ProfilePresenter(
             DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(applicationContext),
-            DependencyInjector.providePlayerHeroRepository(applicationContext)
+            DependencyInjector.providePlayerHeroRepository(applicationContext),
+            DependencyInjector.provideMatchRepository(applicationContext)
         )
         presenter.onViewReady(this)
     }

@@ -21,11 +21,14 @@
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/drawer_nav_view.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_history.xml" value="0.33541666666666664" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_loading.xml" value="0.33541666666666664" />
+        <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_matches.xml" value="0.3398148148148148" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_overview.xml" value="0.33" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_peers.xml" value="0.33541666666666664" />
-        <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_player_heroes.xml" value="0.25" />
+        <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_player_heroes.xml" value="0.7566964285714286" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_profile_overview.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/fragment_totals.xml" value="0.33541666666666664" />
+        <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/match_list.xml" value="0.3398148148148148" />
+        <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/match_list_item.xml" value="0.3398148148148148" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/nav_header.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/nav_view.xml" value="0.25" />
         <entry key="..\:/Users/SLeoR/Desktop/OJT/OpenDotaReborn/app/src/main/res/layout/player_hero_list.xml" value="0.33" />

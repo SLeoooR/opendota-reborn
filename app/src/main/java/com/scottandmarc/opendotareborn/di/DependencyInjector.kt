@@ -6,6 +6,8 @@ import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoRepository
 import com.scottandmarc.opendotareborn.app.data.hero.info.createHeroInfoService
 import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
 import com.scottandmarc.opendotareborn.app.data.hero.player.createPlayerHeroService
+import com.scottandmarc.opendotareborn.app.data.matches.MatchRepository
+import com.scottandmarc.opendotareborn.app.data.matches.createMatchService
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.data.player.createPlayerService
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
@@ -46,6 +48,17 @@ object DependencyInjector {
         return PlayerHeroRepository(
             db.getPlayerHeroDao(),
             createPlayerHeroService(),
+        )
+    }
+
+    fun provideMatchRepository(
+        appContext: Context
+    ) : MatchRepository {
+        val db = OpenDotaRebornDatabase.getDatabase(appContext)
+
+        return MatchRepository(
+            db.getMatchDao(),
+            createMatchService()
         )
     }
 }

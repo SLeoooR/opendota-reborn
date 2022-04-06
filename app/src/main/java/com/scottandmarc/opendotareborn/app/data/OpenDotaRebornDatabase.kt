@@ -6,13 +6,15 @@ import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoDao
 import com.scottandmarc.opendotareborn.app.data.hero.info.LocalHeroInfo
 import com.scottandmarc.opendotareborn.app.data.hero.player.LocalPlayerHero
 import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroDao
+import com.scottandmarc.opendotareborn.app.data.matches.LocalMatch
+import com.scottandmarc.opendotareborn.app.data.matches.MatchDao
 import com.scottandmarc.opendotareborn.app.data.player.LocalPlayer
 import com.scottandmarc.opendotareborn.app.data.player.PlayerDao
 import com.scottandmarc.opendotareborn.toolbox.helpers.Converters
 
 @Database(
-    version = 10,
-    entities = [LocalPlayer::class, LocalHeroInfo::class, LocalPlayerHero::class]
+    version = 12,
+    entities = [LocalPlayer::class, LocalHeroInfo::class, LocalPlayerHero::class, LocalMatch::class]
 )
 @TypeConverters(Converters::class)
 abstract class OpenDotaRebornDatabase : RoomDatabase() {
@@ -44,4 +46,5 @@ abstract class OpenDotaRebornDatabase : RoomDatabase() {
     abstract fun getPlayerDao(): PlayerDao
     abstract fun getHeroInfoDao(): HeroInfoDao
     abstract fun getPlayerHeroDao(): PlayerHeroDao
+    abstract fun getMatchDao(): MatchDao
 }
