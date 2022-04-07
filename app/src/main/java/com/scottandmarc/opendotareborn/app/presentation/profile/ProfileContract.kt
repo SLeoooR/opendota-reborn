@@ -8,6 +8,9 @@ interface ProfileContract {
         fun displayToast(msg: String)
 
         fun navigateToSteamProfile(profileURL: String)
+
+        fun showLoadingDialog()
+        fun dismissLoadingDialog()
     }
 
     interface Presenter : BasePresenter<View> {

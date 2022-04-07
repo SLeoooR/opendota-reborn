@@ -1,46 +1,53 @@
 package com.scottandmarc.opendotareborn.app.data.player
 
+import android.util.Log
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
 import com.scottandmarc.opendotareborn.app.domain.gateways.PlayerGateway
+import java.lang.Exception
 
 class PlayerRepository(
     private val playerDao: PlayerDao,
     private val playerService: PlayerEndpoints
 ) : PlayerGateway {
     override suspend fun fetchPlayer(accountId: Int): Player {
-        val playerProfile: RemotePlayer? = playerService.fetchPlayer(accountId).body()
-        val playerWinLose: RemoteWinLose? = playerService.fetchWinLose(accountId).body()
+        return try {
+            val playerProfile: RemotePlayer? = playerService.fetchPlayer(accountId).body()
+            val playerWinLose: RemoteWinLose? = playerService.fetchWinLose(accountId).body()
 
-        return Player(
-            playerProfile?.trackedUntil,
-            playerProfile?.soloCompetitiveRank,
-            playerProfile?.competitiveRank,
-            playerProfile?.rankTier,
-            playerProfile?.leaderboardRank,
-            Player.MMREstimate(
-                playerProfile?.mmrEstimate?.estimate
-            ),
-            Player.Profile(
-                playerProfile?.profile?.accountId ?: 0,
-                playerProfile?.profile?.personaName ?: "",
-                playerProfile?.profile?.name,
-                playerProfile?.profile?.plus ?: false,
-                playerProfile?.profile?.cheese ?: 0,
-                playerProfile?.profile?.steamId ?: "",
-                playerProfile?.profile?.avatar ?: "",
-                playerProfile?.profile?.avatarMedium ?: "",
-                playerProfile?.profile?.avatarFull ?: "",
-                playerProfile?.profile?.profileURL ?: "",
-                playerProfile?.profile?.lastLogin,
-                playerProfile?.profile?.locCountryCode,
-                playerProfile?.profile?.isContributor ?: false,
-            ),
-            Player.WinLose(
-                playerWinLose?.id,
-                playerWinLose?.win ?: 0,
-                playerWinLose?.lose ?: 0
+            Player(
+                playerProfile?.trackedUntil,
+                playerProfile?.soloCompetitiveRank,
+                playerProfile?.competitiveRank,
+                playerProfile?.rankTier,
+                playerProfile?.leaderboardRank,
+                Player.MMREstimate(
+                    playerProfile?.mmrEstimate?.estimate
+                ),
+                Player.Profile(
+                    playerProfile?.profile?.accountId ?: 0,
+                    playerProfile?.profile?.personaName ?: "",
+                    playerProfile?.profile?.name,
+                    playerProfile?.profile?.plus ?: false,
+                    playerProfile?.profile?.cheese ?: 0,
+                    playerProfile?.profile?.steamId ?: "",
+                    playerProfile?.profile?.avatar ?: "",
+                    playerProfile?.profile?.avatarMedium ?: "",
+                    playerProfile?.profile?.avatarFull ?: "",
+                    playerProfile?.profile?.profileURL ?: "",
+                    playerProfile?.profile?.lastLogin,
+                    playerProfile?.profile?.locCountryCode,
+                    playerProfile?.profile?.isContributor ?: false,
+                ),
+                Player.WinLose(
+                    playerWinLose?.id,
+                    playerWinLose?.win ?: 0,
+                    playerWinLose?.lose ?: 0
+                )
             )
-        )
+        } catch (e: Exception) {
+            Log.d("error", e.localizedMessage?: "")
+            throw e
+        }
     }
 
     // Player DAO

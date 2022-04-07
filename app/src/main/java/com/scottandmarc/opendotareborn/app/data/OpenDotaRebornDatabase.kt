@@ -13,8 +13,14 @@ import com.scottandmarc.opendotareborn.app.data.player.PlayerDao
 import com.scottandmarc.opendotareborn.toolbox.helpers.Converters
 
 @Database(
+    entities = [
+        LocalPlayer::class,
+        LocalHeroInfo::class,
+        LocalPlayerHero::class,
+        LocalMatch::class
+    ],
     version = 12,
-    entities = [LocalPlayer::class, LocalHeroInfo::class, LocalPlayerHero::class, LocalMatch::class]
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class OpenDotaRebornDatabase : RoomDatabase() {

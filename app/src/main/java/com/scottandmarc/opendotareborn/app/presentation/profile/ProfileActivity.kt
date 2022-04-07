@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -20,6 +21,7 @@ import com.scottandmarc.opendotareborn.app.presentation.profile.peers.PeersFragm
 import com.scottandmarc.opendotareborn.app.presentation.profile.totals.TotalsFragment
 import com.scottandmarc.opendotareborn.databinding.DrawerNavViewBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
 import com.scottandmarc.opendotareborn.toolbox.helpers.LoadingFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,18 +36,17 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
 
     private lateinit var presenter: ProfileContract.Presenter
     private lateinit var menuList: Menu
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(bindingNavView.root)
 
         initPresenter()
-        DependencyInjector.provideCoroutineScopeProvider().provide().launch {
-            initViews()
-        }
+        initViews()
     }
 
-    private suspend fun initViews() {
+    private fun initViews() {
         // Start Toolbar Views
         setSupportActionBar(bindingNavView.activityProfile.tbProfileView)
         supportActionBar?.title = ""
@@ -58,8 +59,6 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
         bindingNavView.nvLayout.setNavigationItemSelectedListener(this)
         // End Toolbar Views
 
-        loadFragment(LoadingFragment())
-        delay(1000)
         loadFragment(OverviewFragment())
 
         // Start BottomNavView
@@ -165,5 +164,14 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
     private fun showSteamIcon() {
         val item: MenuItem = menuList.findItem(R.id.steam_profile)
         item.isVisible = true
+    }
+
+    override fun showLoadingDialog() {
+        loadingDialog = DialogHelper.createLoadingDialog(this, layoutInflater)
+        loadingDialog.show()
+    }
+
+    override fun dismissLoadingDialog() {
+        loadingDialog.dismiss()
     }
 }

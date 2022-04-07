@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/steam_profile"
-        android:icon="@drawable/steam_icon"
+        android:icon="@drawable/ic_steam_icon"
         android:title="Steam"
         app:showAsAction="always"
         tools:ignore="HardcodedText" />

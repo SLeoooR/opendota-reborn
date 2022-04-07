@@ -51,25 +51,50 @@ class MatchesListAdapter(
                 }
             }
 
-            var wlString = ""
-            if (playerSide == "radiant" && match.radiantWin) {
-                wlString = "Win"
-                viewHolder.binding.tvWinOrLose.text = wlString
-                viewHolder.binding.tvWinOrLose.setTextColor(ContextCompat.getColor(viewHolder.binding.root.context, R.color.green))
+            val wlString: String
+            if (playerSide == "radiant") {
+                if (match.radiantWin) {
+                    wlString = "Win"
+                    viewHolder.binding.tvWinOrLose.text = wlString
+                    viewHolder.binding.tvWinOrLose.setTextColor(ContextCompat.getColor(viewHolder.binding.root.context, R.color.green))
+                } else {
+                    wlString = "Lose"
+                    viewHolder.binding.tvWinOrLose.text = wlString
+                    viewHolder.binding.tvWinOrLose.setTextColor(ContextCompat.getColor(viewHolder.binding.root.context, R.color.red))
+                }
             } else {
-                wlString = "Lose"
-                viewHolder.binding.tvWinOrLose.text = wlString
-                viewHolder.binding.tvWinOrLose.setTextColor(ContextCompat.getColor(viewHolder.binding.root.context, R.color.red))
+                if (!match.radiantWin) {
+                    wlString = "Win"
+                    viewHolder.binding.tvWinOrLose.text = wlString
+                    viewHolder.binding.tvWinOrLose.setTextColor(ContextCompat.getColor(viewHolder.binding.root.context, R.color.green))
+                } else {
+                    wlString = "Lose"
+                    viewHolder.binding.tvWinOrLose.text = wlString
+                    viewHolder.binding.tvWinOrLose.setTextColor(ContextCompat.getColor(viewHolder.binding.root.context, R.color.red))
+                }
             }
 
             val kdaString = "${match.kills}/${match.deaths}/${match.assists}"
             viewHolder.binding.tvKDA.text = kdaString
 
             val matchDurationInSeconds = match.duration
-            val hour = (matchDurationInSeconds % (24 * 3600)) / 3600
             val minutes = (matchDurationInSeconds % 3600) / 60
+            val seconds = matchDurationInSeconds % 60
 
-            val matchLengthString = "$hour:$minutes"
+            val matchLengthString: String = if (minutes < 10) {
+                if (seconds < 10) {
+                    "0$minutes:0$seconds"
+                } else {
+                    "0$minutes:$seconds"
+                }
+            } else {
+                if (seconds < 10) {
+                    "$minutes:0$seconds"
+                } else {
+                    "$minutes:$seconds"
+                }
+            }
+
             viewHolder.binding.tvLength.text = matchLengthString
 
             viewHolder.binding.tvMatchLP.text = numTimeAgo((match.startTime + match.duration))

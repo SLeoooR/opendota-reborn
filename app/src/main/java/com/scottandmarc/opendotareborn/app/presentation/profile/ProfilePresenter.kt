@@ -28,6 +28,7 @@ class ProfilePresenter(
         player = playerRepository.getPlayer()
         coroutineScopeProvider.provide().launch {
             try {
+                view.showLoadingDialog()
                 playerHeroes = playerHeroRepository.fetchHeroes(player.profile.accountId)
                 matches = matchRepository.fetchMatches(player.profile.accountId)
 
@@ -38,6 +39,7 @@ class ProfilePresenter(
                 matches.forEach{
                     matchRepository.insertMatch(it)
                 }
+                view.dismissLoadingDialog()
             } catch(t: Exception) {
                 view.displayToast(t.localizedMessage?: "")
                 throw t
