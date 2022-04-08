@@ -40,24 +40,14 @@ object DependencyInjector {
         )
     }
 
-    fun providePlayerHeroRepository(
-        appContext: Context
-    ) : PlayerHeroRepository {
-        val db = OpenDotaRebornDatabase.getDatabase(appContext)
-
+    fun providePlayerHeroRepository() : PlayerHeroRepository {
         return PlayerHeroRepository(
-            db.getPlayerHeroDao(),
             createPlayerHeroService(),
         )
     }
 
-    fun provideMatchRepository(
-        appContext: Context
-    ) : MatchRepository {
-        val db = OpenDotaRebornDatabase.getDatabase(appContext)
-
+    fun provideMatchRepository() : MatchRepository {
         return MatchRepository(
-            db.getMatchDao(),
             createMatchService()
         )
     }

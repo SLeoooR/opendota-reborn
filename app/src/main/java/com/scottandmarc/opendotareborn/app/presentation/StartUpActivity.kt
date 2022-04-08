@@ -2,12 +2,15 @@ package com.scottandmarc.opendotareborn.app.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.scottandmarc.opendotareborn.app.presentation.getstarted.GetStartedActivity
 import com.scottandmarc.opendotareborn.app.presentation.profile.ProfileActivity
 import com.scottandmarc.opendotareborn.databinding.ActivityStartUpBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.InternetHelper.isInternetAvailable
 import kotlinx.coroutines.*
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class StartUpActivity : AppCompatActivity(), CoroutineScope {
@@ -31,7 +34,10 @@ class StartUpActivity : AppCompatActivity(), CoroutineScope {
             val isPlayerLoggedIn = playerRepository.count()
 
             if (isPlayerLoggedIn == 1) {
-                playerRepository.insert(playerRepository.fetchPlayer(playerRepository.getPlayer().profile.accountId))
+                if (!isInternetAvailable()) {
+                    playerRepository.insert(playerRepository.fetchPlayer(playerRepository.getPlayer().profile.accountId))
+                }
+
                 startActivity(Intent(this@StartUpActivity, ProfileActivity::class.java))
             } else {
                 startActivity(Intent(this@StartUpActivity, GetStartedActivity::class.java))

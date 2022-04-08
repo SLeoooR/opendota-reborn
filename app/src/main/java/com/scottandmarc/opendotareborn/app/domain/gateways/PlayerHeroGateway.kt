@@ -7,13 +7,6 @@ import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 interface PlayerHeroGateway {
     // API Method
     suspend fun fetchHeroes(
-        accountId: Int?,
+        accountId: Int,
     ): List<PlayerHero>
-
-    // Room Methods
-    fun insertPlayerHero(playerHero: PlayerHero)
-    fun deletePlayerHeroes()
-    fun getPlayerHeroes(): List<PlayerHero>
-    fun countPlayerHeroes(): Int
-    fun getPlayerHeroWhere(id: Int): PlayerHero
 }

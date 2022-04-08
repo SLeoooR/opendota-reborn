@@ -10,11 +10,18 @@ interface PlayerHeroesContract {
         fun getCurrentPage(): Int
         fun setCurrentPage(currentPage: Int)
         fun updateRv()
+
+        fun showLoadingDialog()
+        fun dismissLoadingDialog()
+
+        fun setTotalPages(totalPages: Int)
+        fun toggleButtons()
+        fun setupBtnNext()
+        fun setupBtnPrev()
     }
 
     interface Presenter: BasePresenter<View> {
         fun onPrevBtnClick()
         fun onNextBtnClick()
-        fun getTotalPages(): Int
     }
 }

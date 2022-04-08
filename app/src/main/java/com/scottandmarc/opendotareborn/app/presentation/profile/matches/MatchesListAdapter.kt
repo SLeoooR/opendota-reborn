@@ -8,7 +8,7 @@ import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.Match
 import com.scottandmarc.opendotareborn.databinding.MatchListItemBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
-import com.scottandmarc.opendotareborn.toolbox.helpers.TimeHelper.Companion.numTimeAgo
+import com.scottandmarc.opendotareborn.toolbox.helpers.TimeHelper.numTimeAgo
 import com.squareup.picasso.Picasso
 
 class MatchesListAdapter(

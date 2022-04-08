@@ -7,7 +7,7 @@ import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.databinding.PlayerHeroListItemBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
-import com.scottandmarc.opendotareborn.toolbox.helpers.TimeHelper.Companion.numTimeAgo
+import com.scottandmarc.opendotareborn.toolbox.helpers.TimeHelper.numTimeAgo
 import com.squareup.picasso.Picasso
 
 class PlayerHeroesListAdapter(

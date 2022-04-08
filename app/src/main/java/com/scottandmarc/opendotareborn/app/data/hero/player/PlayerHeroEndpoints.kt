@@ -13,7 +13,7 @@ import retrofit2.http.Path
 interface PlayerHeroesEndpoints {
     @GET("players/{account_id}/heroes")
     suspend fun fetchPlayerHeroes(
-        @Path("account_id") accountId: Int?
+        @Path("account_id") accountId: Int
     ): Response<List<RemotePlayerHero>>
 }
 

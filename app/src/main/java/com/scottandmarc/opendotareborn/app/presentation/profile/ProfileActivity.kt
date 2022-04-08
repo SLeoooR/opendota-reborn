@@ -111,10 +111,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View,
 
     private fun initPresenter() {
         presenter = ProfilePresenter(
-            DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(applicationContext),
-            DependencyInjector.providePlayerHeroRepository(applicationContext),
-            DependencyInjector.provideMatchRepository(applicationContext)
         )
         presenter.onViewReady(this)
     }

@@ -1,18 +1,24 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.heroes
 
+import android.util.Log
 import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
+import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
+import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
+import com.scottandmarc.opendotareborn.toolbox.helpers.InternetHelper.isInternetAvailable
+import kotlinx.coroutines.launch
 
 class PlayerHeroesPresenter(
+    private val coroutineScopeProvider: CoroutineScopeProvider,
+    private val playerRepository: PlayerRepository,
     private val playerHeroRepository: PlayerHeroRepository
 ) : PlayerHeroesContract.Presenter {
 
     private var view: PlayerHeroesContract.View? = null
-    private lateinit var allPlayerHeroes: List<PlayerHero>
     private lateinit var playerHeroes: List<PlayerHero>
+    private lateinit var trimmedPlayerHeroes: List<PlayerHero>
 
     private val itemsPerPage = 20
-    private var totalHeroes = 0
     private var itemsRemaining = 0
     private var lastPage = 0
 
@@ -22,12 +28,34 @@ class PlayerHeroesPresenter(
     }
 
     private fun setup() {
-        allPlayerHeroes = playerHeroRepository.getPlayerHeroes()
-        totalHeroes = allPlayerHeroes.size
-        itemsRemaining = totalHeroes % itemsPerPage
-        lastPage = totalHeroes / itemsPerPage
-        playerHeroes = allPlayerHeroes.subList(0, itemsPerPage)
-        view?.setPlayerHeroes(playerHeroes)
+        val accountId = playerRepository.getPlayer().profile.accountId
+        coroutineScopeProvider.provide().launch {
+            try {
+                view?.showLoadingDialog()
+
+                if (!isInternetAvailable()) {
+                    playerHeroes = playerHeroRepository.fetchHeroes(accountId)
+
+                    itemsRemaining = playerHeroes.size % itemsPerPage
+                    lastPage = playerHeroes.size / itemsPerPage
+                    trimmedPlayerHeroes = playerHeroes.subList(0, itemsPerPage)
+
+                    view?.setPlayerHeroes(trimmedPlayerHeroes)
+                    view?.updateRv()
+                    view?.setTotalPages(lastPage)
+
+                    view?.toggleButtons()
+                    view?.setupBtnNext()
+                    view?.setupBtnPrev()
+                }
+
+                view?.dismissLoadingDialog()
+            } catch (e: Exception) {
+                Log.d("error", e.localizedMessage?: "")
+                throw e
+            }
+        }
+
     }
 
     override fun onViewDetach() {
@@ -46,17 +74,15 @@ class PlayerHeroesPresenter(
         generatePlayerHeroes(currentPage)
     }
 
-    override fun getTotalPages(): Int = lastPage
-
     private fun generatePlayerHeroes(currentPage: Int) {
         val startItem = (currentPage * itemsPerPage) + 1
         val numOfData = itemsPerPage
 
-        playerHeroes = if (currentPage == lastPage && itemsRemaining > 0) {
-            allPlayerHeroes.subList(startItem - 1, (startItem + itemsRemaining) - 1)
+        trimmedPlayerHeroes = if (currentPage == lastPage && itemsRemaining > 0) {
+            playerHeroes.subList(startItem - 1, (startItem + itemsRemaining) - 1)
         } else {
-            allPlayerHeroes.subList(startItem - 1, (startItem + numOfData) - 1)
+            playerHeroes.subList(startItem - 1, (startItem + numOfData) - 1)
         }
-        view?.setPlayerHeroes(playerHeroes)
+        view?.setPlayerHeroes(trimmedPlayerHeroes)
     }
 }

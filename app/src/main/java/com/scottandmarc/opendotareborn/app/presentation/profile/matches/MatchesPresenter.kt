@@ -1,18 +1,25 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.matches
 
+import android.util.Log
 import com.scottandmarc.opendotareborn.app.data.matches.MatchRepository
+import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.Match
+import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
+import com.scottandmarc.opendotareborn.toolbox.helpers.InternetHelper.isInternetAvailable
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MatchesPresenter(
+    private val coroutineScopeProvider: CoroutineScopeProvider,
+    private val playerRepository: PlayerRepository,
     private val matchRepository: MatchRepository
 ) : MatchesContract.Presenter {
 
     private var view: MatchesContract.View? = null
-    private lateinit var allMatches: List<Match>
     private lateinit var matches: List<Match>
+    private lateinit var trimmedMatches: List<Match>
 
     private val itemsPerPage = 20
-    private var totalMatches = 0
     private var itemsRemaining = 0
     private var lastPage = 0
 
@@ -26,12 +33,33 @@ class MatchesPresenter(
     }
 
     private fun setup() {
-        allMatches = matchRepository.getMatches()
-        totalMatches = allMatches.size
-        itemsRemaining = totalMatches % itemsPerPage
-        lastPage = totalMatches / itemsPerPage
-        matches = allMatches.subList(0, itemsPerPage)
-        view?.setMatches(matches)
+        val accountId = playerRepository.getPlayer().profile.accountId
+        coroutineScopeProvider.provide().launch {
+            try {
+                view?.showLoadingDialog()
+
+                if (!isInternetAvailable()) {
+                    matches = matchRepository.fetchMatches(accountId)
+
+                    itemsRemaining = matches.size % itemsPerPage
+                    lastPage = matches.size / itemsPerPage
+                    trimmedMatches = matches.subList(0, itemsPerPage)
+
+                    view?.setMatches(trimmedMatches)
+                    view?.updateRv()
+                    view?.setTotalPages(lastPage)
+
+                    view?.toggleButtons()
+                    view?.setupBtnNext()
+                    view?.setupBtnPrev()
+                }
+
+                view?.dismissLoadingDialog()
+            } catch (e: Exception) {
+                Log.d("error", e.localizedMessage?: "")
+                throw e
+            }
+        }
     }
 
     override fun onPrevBtnClick() {
@@ -46,17 +74,15 @@ class MatchesPresenter(
         generateMatches(currentPage)
     }
 
-    override fun getTotalPages(): Int = lastPage
-
     private fun generateMatches(currentPage: Int) {
         val startItem = (currentPage * itemsPerPage) + 1
         val numOfData = itemsPerPage
 
-        matches = if (currentPage == lastPage && itemsRemaining > 0) {
-            allMatches.subList(startItem - 1, (startItem + itemsRemaining) - 1)
+        trimmedMatches = if (currentPage == lastPage && itemsRemaining > 0) {
+            matches.subList(startItem - 1, (startItem + itemsRemaining) - 1)
         } else {
-            allMatches.subList(startItem - 1, (startItem + numOfData) - 1)
+            matches.subList(startItem - 1, (startItem + numOfData) - 1)
         }
-        view?.setMatches(matches)
+        view?.setMatches(trimmedMatches)
     }
 }

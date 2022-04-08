@@ -7,6 +7,7 @@ import com.scottandmarc.opendotareborn.app.domain.entities.Player
 import com.scottandmarc.opendotareborn.app.domain.gateways.HeroInfoGateway
 import com.scottandmarc.opendotareborn.app.domain.gateways.PlayerGateway
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
+import com.scottandmarc.opendotareborn.toolbox.helpers.InternetHelper.isInternetAvailable
 import kotlinx.coroutines.launch
 
 class LoginPresenter(
@@ -24,18 +25,23 @@ class LoginPresenter(
             try {
                 view?.showLoadingDialog()
                 Log.d("accountId", accountId.toString())
-                playerData = playerGateway.fetchPlayer(accountId)
-                heroesInfo = heroInfoGateway.fetchHeroesInfo()
-                playerGateway.insert(playerData)
 
-                heroesInfo.forEach {
-                    heroInfoGateway.insertHeroInfo(it)
+                if (!isInternetAvailable()) {
+                    playerData = playerGateway.fetchPlayer(accountId)
+                    heroesInfo = heroInfoGateway.fetchHeroesInfo()
+                    playerGateway.insert(playerData)
+
+                    heroesInfo.forEach {
+                        heroInfoGateway.insertHeroInfo(it)
+                    }
+                    view?.navigateToProfile()
+                } else {
+                    view?.displayToast("No internet connection")
                 }
 
                 Log.d("LocalHeroesInfo", heroInfoGateway.getHeroesInfo().toString())
 
                 view?.dismissLoadingDialog()
-                view?.navigateToProfile()
             } catch (e: Exception) {
                 view?.dismissLoadingDialog()
                 view?.displayToast(e.localizedMessage?: "")
