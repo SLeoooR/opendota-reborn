@@ -14,8 +14,6 @@ interface OverviewContract {
         fun showPlayerWins(wins: Int)
         fun showPlayerLosses(losses: Int)
         fun showPlayerWinRate(winRate: Float)
-
-        fun getPlayerHeroes(playerHeroes: List<PlayerHero>)
     }
 
     interface Presenter : BasePresenter<View> {

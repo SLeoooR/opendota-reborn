@@ -1,18 +1,14 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.overview
 
-import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
-import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 
 class OverviewPresenter(
     private val playerRepository: PlayerRepository,
-    private val playerHeroRepository: PlayerHeroRepository,
 ) : OverviewContract.Presenter {
 
     private var view: OverviewContract.View? = null
     private lateinit var player: Player
-    private lateinit var playerHeroes: List<PlayerHero>
 
     override fun onViewReady(view: OverviewContract.View) {
         this.view = view
@@ -20,9 +16,6 @@ class OverviewPresenter(
     }
 
     private fun setup() {
-        playerHeroes = playerHeroRepository.getPlayerHeroes()
-        view?.getPlayerHeroes(playerHeroes)
-
         player = playerRepository.getPlayer()
         view?.showProfilePic(player.profile.avatarFull)
         view?.showPlayerName(player.profile.personaName)

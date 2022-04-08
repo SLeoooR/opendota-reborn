@@ -21,8 +21,6 @@ class OverviewFragment : Fragment(), OverviewContract.View {
     }
 
     private lateinit var presenter: OverviewContract.Presenter
-    private lateinit var rvPlayerHeroesAdapter: PlayerHeroesListAdapter
-    private lateinit var playerHeroes: List<PlayerHero>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,13 +33,11 @@ class OverviewFragment : Fragment(), OverviewContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         initPresenter(view.context)
-        initRv()
     }
 
     private fun initPresenter(context: Context) {
         presenter = OverviewPresenter(
             DependencyInjector.providePlayerRepository(context),
-            DependencyInjector.providePlayerHeroRepository(context),
         )
         presenter.onViewReady(this)
     }
@@ -70,20 +66,5 @@ class OverviewFragment : Fragment(), OverviewContract.View {
     override fun showPlayerWinRate(winRate: Float) {
         val text = "${String.format("%.2f", winRate)}%"
         binding.tvPlayerWinRate.text = text
-    }
-
-    override fun getPlayerHeroes(playerHeroes: List<PlayerHero>) {
-        this.playerHeroes = playerHeroes
-    }
-
-    private fun initRv() {
-        // Assign RV
-        val rvPlayerHeroes = binding.topThreeHeroesLayout.rvPlayerHeroes
-
-        //Init RecyclerView
-        rvPlayerHeroesAdapter = PlayerHeroesListAdapter(playerHeroes, true)
-
-        rvPlayerHeroes.layoutManager = LinearLayoutManager(this.context)
-        rvPlayerHeroes.adapter = rvPlayerHeroesAdapter
     }
 }

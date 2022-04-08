@@ -30,15 +30,15 @@ class ProfilePresenter(
             try {
                 view.showLoadingDialog()
                 playerHeroes = playerHeroRepository.fetchHeroes(player.profile.accountId)
-                matches = matchRepository.fetchMatches(player.profile.accountId)
+                //matches = matchRepository.fetchMatches(player.profile.accountId)
 
                 playerHeroes.forEach {
                     playerHeroRepository.insertPlayerHero(it)
                 }
 
-                matches.forEach{
-                    matchRepository.insertMatch(it)
-                }
+//                matches.forEach{
+//                    matchRepository.insertMatch(it)
+//                }
                 view.dismissLoadingDialog()
             } catch(t: Exception) {
                 view.displayToast(t.localizedMessage?: "")
