@@ -1,6 +1,6 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.overview
 
-import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
+import com.scottandmarc.opendotareborn.app.domain.entities.ProcessedRecentMatch
 import com.scottandmarc.opendotareborn.toolbox.mvp.BasePresenter
 import com.scottandmarc.opendotareborn.toolbox.mvp.BaseView
 
@@ -14,6 +14,12 @@ interface OverviewContract {
         fun showPlayerWins(wins: Int)
         fun showPlayerLosses(losses: Int)
         fun showPlayerWinRate(winRate: Float)
+
+        fun showLoadingDialog()
+        fun dismissLoadingDialog()
+
+        fun setProcessedRecentMatches(processedRecentMatches: MutableList<ProcessedRecentMatch>)
+        fun updateRv()
     }
 
     interface Presenter : BasePresenter<View> {

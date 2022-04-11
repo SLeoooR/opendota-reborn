@@ -10,13 +10,18 @@ object TimeHelper {
         val lastPlayedDate = Date(lastDate.toLong() * 1000).time
 
         val difference: Long = kotlin.math.abs(currentDate - lastPlayedDate)
-        val hours = (difference / (60 * 60 * 1000))
+        val minutes = (difference / (60 * 1000))
+        val hours = minutes / 60
 
         val hoursInDay = 24
         val hoursInWeek = 168
         val hoursInMonth = 730
         val hoursInYear = 8760
         when {
+            minutes < 60 -> {
+                // Return Minutes
+                return "$minutes mins"
+            }
             hours < hoursInDay -> {
                 // Return Hours
                 return "$hours hours"

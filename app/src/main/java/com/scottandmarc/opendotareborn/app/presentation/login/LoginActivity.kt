@@ -13,6 +13,7 @@ import com.scottandmarc.opendotareborn.app.presentation.profile.ProfileActivity
 import com.scottandmarc.opendotareborn.databinding.ActivityLoginBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
     private val binding: ActivityLoginBinding by lazy {
@@ -60,6 +61,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(applicationContext),
             DependencyInjector.provideHeroInfoRepository(applicationContext),
+            NetworkConnectionChecker(applicationContext)
         )
     }
 

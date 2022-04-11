@@ -1,14 +1,36 @@
 package com.scottandmarc.opendotareborn.toolbox.helpers
 
-import java.net.InetAddress
+import android.content.Context
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.*
+import android.os.Build
 
-object InternetHelper {
-    fun isInternetAvailable(): Boolean {
-        return try {
-            val ipAddress: InetAddress = InetAddress.getByName("google.com")
-            //You can replace it with your name
-            !ipAddress.equals("")
-        } catch (e: Exception) {
+object NetworkUtils {
+    fun Context?.isNetworkAvailable(): Boolean {
+        return if (this == null) false
+        else {
+            val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                capabilities.isCapabilityValid()
+            } else {
+                val activeNetworkInfo = connectivityManager.activeNetworkInfo
+                activeNetworkInfo != null && activeNetworkInfo.isConnected
+            }
+        }
+    }
+
+    private fun NetworkCapabilities?.isCapabilityValid(): Boolean {
+        return if (this != null) {
+            when {
+                hasTransport(TRANSPORT_CELLULAR) -> true
+                hasTransport(TRANSPORT_WIFI) -> true
+                hasTransport(TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
+        } else {
             false
         }
     }

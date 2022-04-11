@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoRepository
-import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
-import com.scottandmarc.opendotareborn.app.presentation.profile.heroes.PlayerHeroesListAdapter
+import com.scottandmarc.opendotareborn.app.domain.entities.ProcessedRecentMatch
 import com.scottandmarc.opendotareborn.databinding.FragmentOverviewBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import com.squareup.picasso.Picasso
 
 class OverviewFragment : Fragment(), OverviewContract.View {
@@ -21,6 +22,9 @@ class OverviewFragment : Fragment(), OverviewContract.View {
     }
 
     private lateinit var presenter: OverviewContract.Presenter
+    private lateinit var loadingDialog: AlertDialog
+    private lateinit var processedRecentMatches: List<ProcessedRecentMatch>
+    private lateinit var recentMatchesListAdapter: RecentMatchesListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +41,10 @@ class OverviewFragment : Fragment(), OverviewContract.View {
 
     private fun initPresenter(context: Context) {
         presenter = OverviewPresenter(
+            DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(context),
+            DependencyInjector.provideRecentMatchRepository(),
+            NetworkConnectionChecker(context)
         )
         presenter.onViewReady(this)
     }
@@ -66,5 +73,29 @@ class OverviewFragment : Fragment(), OverviewContract.View {
     override fun showPlayerWinRate(winRate: Float) {
         val text = "${String.format("%.2f", winRate)}%"
         binding.tvPlayerWinRate.text = text
+    }
+
+    override fun showLoadingDialog() {
+        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
+        loadingDialog.show()
+    }
+
+    override fun dismissLoadingDialog() {
+        loadingDialog.dismiss()
+    }
+
+    override fun setProcessedRecentMatches(processedRecentMatches: MutableList<ProcessedRecentMatch>) {
+        this.processedRecentMatches = processedRecentMatches
+    }
+
+    override fun updateRv() {
+        // Assign RV
+        val rvPlayerHeroes = binding.recentMatchesLayout.rvRecentMatches
+
+        //Init RecyclerView
+        recentMatchesListAdapter = RecentMatchesListAdapter(processedRecentMatches)
+
+        rvPlayerHeroes.layoutManager = LinearLayoutManager(this.context)
+        rvPlayerHeroes.adapter = recentMatchesListAdapter
     }
 }

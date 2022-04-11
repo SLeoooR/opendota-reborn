@@ -1,6 +1,7 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.heroes
 
 import android.content.Context
+import android.net.Network
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.databinding.FragmentPlayerHeroesBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper.Companion.createLoadingDialog
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
 class PlayerHeroesFragment : Fragment(), PlayerHeroesContract.View {
 
@@ -47,7 +49,8 @@ class PlayerHeroesFragment : Fragment(), PlayerHeroesContract.View {
         presenter = PlayerHeroesPresenter(
             DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(context),
-            DependencyInjector.providePlayerHeroRepository()
+            DependencyInjector.providePlayerHeroRepository(),
+            NetworkConnectionChecker(context)
         )
         presenter.onViewReady(this)
     }

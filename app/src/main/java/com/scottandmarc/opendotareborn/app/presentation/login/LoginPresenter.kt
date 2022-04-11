@@ -1,19 +1,19 @@
 package com.scottandmarc.opendotareborn.app.presentation.login
 
 import android.util.Log
-import com.scottandmarc.opendotareborn.app.data.hero.info.LocalHeroInfo
 import com.scottandmarc.opendotareborn.app.domain.entities.HeroInfo
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
 import com.scottandmarc.opendotareborn.app.domain.gateways.HeroInfoGateway
 import com.scottandmarc.opendotareborn.app.domain.gateways.PlayerGateway
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
-import com.scottandmarc.opendotareborn.toolbox.helpers.InternetHelper.isInternetAvailable
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
 
 class LoginPresenter(
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerGateway: PlayerGateway,
     private val heroInfoGateway: HeroInfoGateway,
+    private val networkConnectionChecker: NetworkConnectionChecker
 ) : LoginContract.Presenter {
     private var view: LoginContract.View? = null
 
@@ -26,7 +26,7 @@ class LoginPresenter(
                 view?.showLoadingDialog()
                 Log.d("accountId", accountId.toString())
 
-                if (!isInternetAvailable()) {
+                if (networkConnectionChecker.isNetworkAvailable()) {
                     playerData = playerGateway.fetchPlayer(accountId)
                     heroesInfo = heroInfoGateway.fetchHeroesInfo()
                     playerGateway.insert(playerData)

@@ -10,6 +10,9 @@ import com.scottandmarc.opendotareborn.app.data.matches.MatchRepository
 import com.scottandmarc.opendotareborn.app.data.matches.createMatchService
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.data.player.createPlayerService
+import com.scottandmarc.opendotareborn.app.data.recentMatches.RecentMatchRepository
+import com.scottandmarc.opendotareborn.app.data.recentMatches.createRecentMatchService
+import com.scottandmarc.opendotareborn.app.domain.gateways.RecentMatchGateway
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 
 object DependencyInjector {
@@ -49,6 +52,12 @@ object DependencyInjector {
     fun provideMatchRepository() : MatchRepository {
         return MatchRepository(
             createMatchService()
+        )
+    }
+
+    fun provideRecentMatchRepository() : RecentMatchRepository {
+        return RecentMatchRepository(
+            createRecentMatchService()
         )
     }
 }

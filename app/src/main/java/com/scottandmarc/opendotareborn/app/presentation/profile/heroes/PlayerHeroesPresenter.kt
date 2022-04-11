@@ -5,13 +5,14 @@ import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
-import com.scottandmarc.opendotareborn.toolbox.helpers.InternetHelper.isInternetAvailable
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
 
 class PlayerHeroesPresenter(
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerRepository: PlayerRepository,
-    private val playerHeroRepository: PlayerHeroRepository
+    private val playerHeroRepository: PlayerHeroRepository,
+    private val networkConnectionChecker: NetworkConnectionChecker
 ) : PlayerHeroesContract.Presenter {
 
     private var view: PlayerHeroesContract.View? = null
@@ -33,7 +34,7 @@ class PlayerHeroesPresenter(
             try {
                 view?.showLoadingDialog()
 
-                if (!isInternetAvailable()) {
+                if (networkConnectionChecker.isNetworkAvailable()) {
                     playerHeroes = playerHeroRepository.fetchHeroes(accountId)
 
                     itemsRemaining = playerHeroes.size % itemsPerPage

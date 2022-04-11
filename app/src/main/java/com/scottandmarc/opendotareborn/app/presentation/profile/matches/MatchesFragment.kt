@@ -13,6 +13,7 @@ import com.scottandmarc.opendotareborn.app.domain.entities.Match
 import com.scottandmarc.opendotareborn.databinding.FragmentMatchesBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
 
 class MatchesFragment : Fragment(), MatchesContract.View {
@@ -48,7 +49,8 @@ class MatchesFragment : Fragment(), MatchesContract.View {
         presenter = MatchesPresenter(
             DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(context),
-            DependencyInjector.provideMatchRepository()
+            DependencyInjector.provideMatchRepository(),
+            NetworkConnectionChecker(context)
         )
         presenter.onViewReady(this)
     }

@@ -5,14 +5,15 @@ import com.scottandmarc.opendotareborn.app.data.matches.MatchRepository
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.Match
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
-import com.scottandmarc.opendotareborn.toolbox.helpers.InternetHelper.isInternetAvailable
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class MatchesPresenter(
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerRepository: PlayerRepository,
-    private val matchRepository: MatchRepository
+    private val matchRepository: MatchRepository,
+    private val networkConnectionChecker: NetworkConnectionChecker
 ) : MatchesContract.Presenter {
 
     private var view: MatchesContract.View? = null
@@ -38,7 +39,7 @@ class MatchesPresenter(
             try {
                 view?.showLoadingDialog()
 
-                if (!isInternetAvailable()) {
+                if (networkConnectionChecker.isNetworkAvailable()) {
                     matches = matchRepository.fetchMatches(accountId)
 
                     itemsRemaining = matches.size % itemsPerPage
