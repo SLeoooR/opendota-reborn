@@ -8,6 +8,8 @@ import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
 import com.scottandmarc.opendotareborn.app.data.hero.player.createPlayerHeroService
 import com.scottandmarc.opendotareborn.app.data.matches.MatchRepository
 import com.scottandmarc.opendotareborn.app.data.matches.createMatchService
+import com.scottandmarc.opendotareborn.app.data.peers.PeerRepository
+import com.scottandmarc.opendotareborn.app.data.peers.createPeerService
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.data.player.createPlayerService
 import com.scottandmarc.opendotareborn.app.data.recentMatches.RecentMatchRepository
@@ -58,6 +60,12 @@ object DependencyInjector {
     fun provideRecentMatchRepository() : RecentMatchRepository {
         return RecentMatchRepository(
             createRecentMatchService()
+        )
+    }
+
+    fun providePeerRepository() : PeerRepository {
+        return PeerRepository(
+            createPeerService()
         )
     }
 }

@@ -1,60 +1,141 @@
 package com.scottandmarc.opendotareborn.app.presentation.profile.peers
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.scottandmarc.opendotareborn.R
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.scottandmarc.opendotareborn.app.domain.entities.Peer
+import com.scottandmarc.opendotareborn.databinding.FragmentPeersBinding
+import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class PeersFragment : Fragment(), PeersContract.View {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PeersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PeersFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val binding: FragmentPeersBinding by lazy {
+        FragmentPeersBinding.inflate(layoutInflater)
     }
+
+    private lateinit var presenter: PeersContract.Presenter
+    private lateinit var peers: List<Peer>
+    private lateinit var peersListAdapter: PeersListAdapter
+
+    private lateinit var loadingDialog: AlertDialog
+
+    private var currentPage = 0
+    private var totalPages = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_peers, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PeersFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PeersFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initPresenter()
+    }
+
+    private fun initPresenter() {
+        presenter = PeersPresenter(
+            DependencyInjector.provideCoroutineScopeProvider(),
+            DependencyInjector.providePlayerRepository(requireContext()),
+            DependencyInjector.providePeerRepository(),
+            NetworkConnectionChecker(requireContext())
+        )
+        presenter.onViewReady(this)
+    }
+
+    override fun setPeers(peers: List<Peer>) {
+        this.peers = peers
+    }
+
+    override fun setTotalPages(totalPages: Int) {
+        this.totalPages = totalPages
+    }
+
+    override fun getCurrentPage(): Int = currentPage
+
+    override fun setCurrentPage(currentPage: Int) {
+        this.currentPage = currentPage
+    }
+
+    override fun updateRv() {
+        // Assign RV
+        val rvPlayerHeroes = binding.peerListLayout.rvPeers
+
+        //Init RecyclerView
+        peersListAdapter = PeersListAdapter(peers)
+
+        rvPlayerHeroes.layoutManager = LinearLayoutManager(this.context)
+        rvPlayerHeroes.adapter = peersListAdapter
+    }
+
+    override fun setupBtnNext() {
+        binding.btnNext.setOnClickListener {
+            Log.d("btnNext", currentPage.toString())
+            currentPage++
+            presenter.onNextBtnClick()
+
+            val rvPeers = binding.peerListLayout.rvPeers
+            rvPeers.adapter = PeersListAdapter(peers)
+
+            toggleButtons()
+        }
+    }
+
+    override fun setupBtnPrev() {
+        binding.btnPrev.setOnClickListener {
+            Log.d("btnPrev", currentPage.toString())
+            currentPage--
+            presenter.onPrevBtnClick()
+
+            val rvPeers = binding.peerListLayout.rvPeers
+            rvPeers.adapter = PeersListAdapter(peers)
+
+            toggleButtons()
+        }
+    }
+
+    override fun toggleButtons() {
+        when (currentPage) {
+            totalPages -> {
+                binding.btnNext.visibility = View.INVISIBLE
+                binding.btnNext.isEnabled = false
+
+                binding.btnPrev.visibility = View.VISIBLE
+                binding.btnPrev.isEnabled = true
             }
+            0 -> {
+                binding.btnNext.visibility = View.VISIBLE
+                binding.btnNext.isEnabled = true
+
+                binding.btnPrev.visibility = View.INVISIBLE
+                binding.btnPrev.isEnabled = false
+            }
+            in 1..totalPages -> {
+                binding.btnNext.visibility = View.VISIBLE
+                binding.btnNext.isEnabled = true
+
+                binding.btnPrev.visibility = View.VISIBLE
+                binding.btnPrev.isEnabled = true
+            }
+        }
+    }
+
+    override fun showLoadingDialog() {
+        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
+        loadingDialog.show()
+    }
+
+    override fun dismissLoadingDialog() {
+        loadingDialog.dismiss()
     }
 }
