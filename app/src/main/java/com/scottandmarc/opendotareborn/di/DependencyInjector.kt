@@ -14,6 +14,8 @@ import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.data.player.createPlayerService
 import com.scottandmarc.opendotareborn.app.data.recentMatches.RecentMatchRepository
 import com.scottandmarc.opendotareborn.app.data.recentMatches.createRecentMatchService
+import com.scottandmarc.opendotareborn.app.data.total.TotalRepository
+import com.scottandmarc.opendotareborn.app.data.total.createTotalService
 import com.scottandmarc.opendotareborn.app.domain.gateways.RecentMatchGateway
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 
@@ -66,6 +68,12 @@ object DependencyInjector {
     fun providePeerRepository() : PeerRepository {
         return PeerRepository(
             createPeerService()
+        )
+    }
+
+    fun provideTotalRepository() : TotalRepository {
+        return TotalRepository(
+            createTotalService()
         )
     }
 }

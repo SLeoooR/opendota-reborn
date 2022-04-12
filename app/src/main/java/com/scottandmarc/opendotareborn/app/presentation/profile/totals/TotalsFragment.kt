@@ -5,56 +5,76 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.scottandmarc.opendotareborn.R
+import com.scottandmarc.opendotareborn.app.domain.entities.Peer
+import com.scottandmarc.opendotareborn.app.domain.entities.Total
+import com.scottandmarc.opendotareborn.app.presentation.profile.peers.PeersContract
+import com.scottandmarc.opendotareborn.app.presentation.profile.peers.PeersListAdapter
+import com.scottandmarc.opendotareborn.databinding.FragmentTotalsBinding
+import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class TotalsFragment : Fragment(), TotalContract.View {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TotalsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class TotalsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val binding: FragmentTotalsBinding by lazy {
+        FragmentTotalsBinding.inflate(layoutInflater)
     }
+
+    private lateinit var presenter: TotalContract.Presenter
+    private lateinit var totals: List<Total>
+    private lateinit var totalListAdapter: TotalListAdapter
+
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_totals, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TotalsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TotalsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initPresenter()
+    }
+
+    private fun initPresenter() {
+        presenter = TotalPresenter(
+            DependencyInjector.provideCoroutineScopeProvider(),
+            DependencyInjector.providePlayerRepository(requireContext()),
+            DependencyInjector.provideTotalRepository(),
+            NetworkConnectionChecker(requireContext())
+        )
+        presenter.onViewReady(this)
+    }
+
+    override fun setTotals(totals: List<Total>) {
+        this.totals = totals
+    }
+
+    override fun updateRv() {
+        // Assign RV
+        val rvPlayerHeroes = binding.rvPeers
+
+        //Init RecyclerView
+        totalListAdapter = TotalListAdapter(totals)
+
+        rvPlayerHeroes.layoutManager = GridLayoutManager(this.context, 2)
+        rvPlayerHeroes.adapter = totalListAdapter
+    }
+
+    override fun showLoadingDialog() {
+        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
+        loadingDialog.show()
+    }
+
+    override fun dismissLoadingDialog() {
+        loadingDialog.dismiss()
     }
 }
