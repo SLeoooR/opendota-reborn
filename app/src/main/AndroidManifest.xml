@@ -14,16 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenDotaReborn">
         <activity
-            android:name="com.scottandmarc.opendotareborn.app.presentation.profile.ProfileActivity"
+            android:name=".app.presentation.dashboard.UserDashboardActivity"
             android:exported="false" />
         <activity
-            android:name="com.scottandmarc.opendotareborn.app.presentation.login.LoginActivity"
+            android:name=".app.presentation.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.scottandmarc.opendotareborn.app.presentation.getstarted.GetStartedActivity"
+            android:name=".app.presentation.getstarted.GetStartedActivity"
             android:exported="false" />
         <activity
-            android:name="com.scottandmarc.opendotareborn.app.presentation.StartUpActivity"
+            android:name=".app.presentation.StartUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

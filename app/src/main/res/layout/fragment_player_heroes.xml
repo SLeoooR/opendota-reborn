@@ -8,7 +8,7 @@
     tools:ignore="HardcodedText"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".app.presentation.profile.heroes.PlayerHeroesFragment">
+    tools:context=".app.presentation.dashboard.profile.heroes.PlayerHeroesFragment">
 
     <include
         android:id="@+id/playerHeroListLayout"

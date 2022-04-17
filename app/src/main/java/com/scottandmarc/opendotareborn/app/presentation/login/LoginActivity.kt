@@ -3,13 +3,15 @@ package com.scottandmarc.opendotareborn.app.presentation.login
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
-import com.scottandmarc.opendotareborn.app.presentation.profile.ProfileActivity
+import com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.ProfileFragment
 import com.scottandmarc.opendotareborn.databinding.ActivityLoginBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
@@ -42,6 +44,32 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         btnContinue = binding.btnContinue
         etAccountId = binding.etAccountId
         tvSteamFriendCode = binding.tvSteamFriendCode
+        btnContinue.alpha = .5f
+
+        etAccountId.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if (s.length == 9) {
+                        btnContinue.isEnabled = true
+                        btnContinue.alpha = 1F
+                    } else {
+                        btnContinue.isEnabled = false
+                        btnContinue.alpha = .5F
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                }
+            }
+        )
     }
 
     @SuppressLint("SetTextI18n")
@@ -66,7 +94,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun navigateToProfile() {
-        startActivity(Intent(this@LoginActivity, ProfileActivity::class.java))
+        startActivity(Intent(this@LoginActivity, ProfileFragment::class.java))
     }
 
     override fun showLoadingDialog() {

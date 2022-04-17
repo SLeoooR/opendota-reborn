@@ -29,12 +29,26 @@ class LoginPresenter(
                 if (networkConnectionChecker.isNetworkAvailable()) {
                     playerData = playerGateway.fetchPlayer(accountId)
                     heroesInfo = heroInfoGateway.fetchHeroesInfo()
-                    playerGateway.insert(playerData)
 
-                    heroesInfo.forEach {
-                        heroInfoGateway.insertHeroInfo(it)
+                    val playerNotExist =
+                        playerData.trackedUntil == null &&
+                        playerData.soloCompetitiveRank == null &&
+                        playerData.leaderboardRank == null &&
+                        playerData.competitiveRank == null &&
+                        playerData.rankTier == null &&
+                        playerData.mmrEstimate.estimate == null
+
+                    if (playerNotExist) {
+                        view?.displayToast("Player does not exist")
+                    } else {
+                        playerGateway.insert(playerData)
+
+                        heroesInfo.forEach {
+                            heroInfoGateway.insertHeroInfo(it)
+                        }
+
+                        view?.navigateToProfile()
                     }
-                    view?.navigateToProfile()
                 } else {
                     view?.displayToast("No internet connection")
                 }

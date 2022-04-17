@@ -8,7 +8,7 @@
     tools:ignore="HardcodedText"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".app.presentation.profile.matches.MatchesFragment">
+    tools:context=".app.presentation.dashboard.profile.matches.MatchesFragment">
 
     <include
         android:id="@+id/peerListLayout"

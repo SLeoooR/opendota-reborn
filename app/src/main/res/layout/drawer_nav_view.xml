@@ -9,8 +9,8 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/activity_profile"
-        android:id="@+id/activity_profile" />
+        layout="@layout/activity_user_dashboard"
+        android:id="@+id/activity_user_dashboard" />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nvLayout"

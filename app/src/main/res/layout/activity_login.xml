@@ -42,7 +42,8 @@
             android:inputType="number"
             android:gravity="center"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp" />
+            android:layout_marginEnd="24dp"
+            android:maxLength="9"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -56,6 +57,7 @@
         android:text="Continue"
         android:textColor="@color/white"
         android:backgroundTint="#164059"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:enabled="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

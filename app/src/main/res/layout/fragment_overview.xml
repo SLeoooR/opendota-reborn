@@ -7,12 +7,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/app_background_color"
     tools:ignore="HardcodedText"
-    tools:context=".app.presentation.profile.overview.OverviewFragment">
+    tools:context=".app.presentation.dashboard.profile.overview.OverviewFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:paddingBottom="16dp">
+        android:paddingBottom="8dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llProfileOverview"

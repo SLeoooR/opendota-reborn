@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/app_background_color"
     tools:ignore="HardcodedText"
-    tools:context=".app.presentation.profile.overview.OverviewFragment">
+    tools:context=".app.presentation.dashboard.profile.overview.OverviewFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="wrap_content"
@@ -20,8 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:orientation="vertical"
-            android:layout_margin="16dp">
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 tools:listitem="@layout/total_list_item"
