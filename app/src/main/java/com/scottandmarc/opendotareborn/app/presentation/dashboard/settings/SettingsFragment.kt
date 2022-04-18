@@ -5,56 +5,56 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.scottandmarc.opendotareborn.R
+import com.scottandmarc.opendotareborn.databinding.FragmentSettingsBinding
+import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class SettingsFragment : Fragment(), SettingsContract.View {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val binding: FragmentSettingsBinding by lazy {
+        FragmentSettingsBinding.inflate(layoutInflater)
     }
+
+    private lateinit var presenter: SettingsContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initToolbar()
+        initPresenter()
+        initViews()
+    }
+
+    private fun initViews() {
+        binding.btnChangeSteamFriendCode.setOnClickListener {
+            presenter.onChangeCodeBtnClick()
+        }
+    }
+
+    private fun initPresenter() {
+        presenter = SettingsPresenter(
+            childFragmentManager,
+            DependencyInjector.provideCoroutineScopeProvider(),
+            DependencyInjector.providePlayerRepository(requireContext()),
+            NetworkConnectionChecker(requireContext())
+        )
+        presenter.onViewReady(this)
+    }
+
+    private fun initToolbar() {
+        val toolbar = activity?.findViewById<Toolbar>(R.id.tbUserDashboardView)
+        toolbar?.title = "Settings"
+        toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
     }
 }

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
-import com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.ProfileFragment
+import com.scottandmarc.opendotareborn.app.presentation.dashboard.UserDashboardActivity
 import com.scottandmarc.opendotareborn.databinding.ActivityLoginBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                 }
 
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    if (s.length == 9) {
+                    if (s.isNotEmpty()) {
                         btnContinue.isEnabled = true
                         btnContinue.alpha = 1F
                     } else {
@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun navigateToProfile() {
-        startActivity(Intent(this@LoginActivity, ProfileFragment::class.java))
+        startActivity(Intent(this@LoginActivity, UserDashboardActivity::class.java))
     }
 
     override fun showLoadingDialog() {

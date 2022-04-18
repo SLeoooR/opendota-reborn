@@ -32,62 +32,62 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivPlayerProfilePic"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="55"
+                    android:layout_weight="50"
                     android:adjustViewBounds="true"
                     android:padding="16dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/steam_icon" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="45"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
 
-                    <RelativeLayout
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivPlayerRankIcon"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:padding="16dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/steam_icon" />
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivPlayerRankIcon"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:padding="16dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/steam_icon" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivPlayerStarIcon"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:padding="16dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/steam_icon" />
-
-                    </RelativeLayout>
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvPlayerName"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivPlayerStarIcon"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text=""
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp" />
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:padding="16dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/steam_icon" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                </RelativeLayout>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPlayerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rounded_corner"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:text="Sample"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"

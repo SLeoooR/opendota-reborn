@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.scottandmarc.opendotareborn">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,17 +15,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenDotaReborn">
         <activity
+            android:screenOrientation="portrait"
             android:name=".app.presentation.dashboard.UserDashboardActivity"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".app.presentation.login.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".app.presentation.getstarted.GetStartedActivity"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".app.presentation.StartUpActivity"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -42,8 +42,7 @@
             android:inputType="number"
             android:gravity="center"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:maxLength="9"/>
+            android:layout_marginEnd="24dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

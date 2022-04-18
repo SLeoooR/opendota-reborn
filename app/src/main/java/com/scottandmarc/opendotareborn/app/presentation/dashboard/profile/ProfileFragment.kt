@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.scottandmarc.opendotareborn.R
@@ -40,6 +42,13 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
         initPresenter()
         initViews()
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        val toolbar = activity?.findViewById<Toolbar>(R.id.tbUserDashboardView)
+        toolbar?.title = "Profile"
+        toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
     }
 
     private fun initViews() {
