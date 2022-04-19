@@ -2,7 +2,9 @@ package com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.peers
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.Peer
 import com.scottandmarc.opendotareborn.databinding.PeerListItemBinding
 import com.scottandmarc.opendotareborn.toolbox.helpers.TimeHelper.numTimeAgo
@@ -29,6 +31,13 @@ class PeersListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         if (this.peers.isNotEmpty()) {
             val peer: Peer = peers[position]
+
+            viewHolder.setIsRecyclable(true)
+            if (position % 2 == 0) {
+                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_background_color))
+            } else {
+                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_card_color))
+            }
 
             val peerWinRate = if (peer.games != 0) {
                 (peer.win.toFloat() / peer.games.toFloat()) * 100.0F

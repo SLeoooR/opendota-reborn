@@ -2,7 +2,9 @@ package com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.total
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.Total
 import com.scottandmarc.opendotareborn.databinding.TotalListItemBinding
 

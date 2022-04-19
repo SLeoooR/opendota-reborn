@@ -2,7 +2,9 @@ package com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.heroe
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.databinding.PlayerHeroListItemBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
@@ -32,6 +34,13 @@ class PlayerHeroesListAdapter(
         val heroInfoRepository = DependencyInjector.provideHeroInfoRepository(viewHolder.binding.root.context)
         if (this.playerHeroesList.isNotEmpty()) {
             val playerHero: PlayerHero = playerHeroesList[position]
+
+            viewHolder.setIsRecyclable(true)
+            if (position % 2 == 0) {
+                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_background_color))
+            } else {
+                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_card_color))
+            }
 
             val heroInfo = heroInfoRepository.getHeroInfoWhere(playerHero.heroId.toInt())
             val heroWinRate = if (playerHero.games != 0) {

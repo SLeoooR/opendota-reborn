@@ -3,7 +3,9 @@ package com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.overv
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.ProcessedRecentMatch
 import com.scottandmarc.opendotareborn.databinding.RecentMatchListItemBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
@@ -31,6 +33,13 @@ class RecentMatchesListAdapter(
         val heroInfoRepository = DependencyInjector.provideHeroInfoRepository(viewHolder.binding.root.context)
         if (this.processedRecentMatches.isNotEmpty()) {
             val processedRecentMatch: ProcessedRecentMatch = processedRecentMatches[position]
+
+            viewHolder.setIsRecyclable(true)
+            if (position % 2 == 0) {
+                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_background_color))
+            } else {
+                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_card_color))
+            }
 
             viewHolder.binding.tvStats.text = processedRecentMatch.stat
             viewHolder.binding.tvAverage.text = "%,d".format(processedRecentMatch.average)
