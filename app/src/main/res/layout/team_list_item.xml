@@ -59,23 +59,14 @@
         android:textColor="@color/white"/>
 
     <TextView
-        android:id="@+id/tvTeamWins"
-        android:text="1500"
+        android:id="@+id/tvTeamWinLose"
+        android:text="1500 - 914"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/tvTeamLosses"
-        android:text="914"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_weight="1"
         android:textColor="@color/white"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

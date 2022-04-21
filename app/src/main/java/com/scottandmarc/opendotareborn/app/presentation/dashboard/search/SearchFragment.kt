@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -77,6 +78,7 @@ class SearchFragment : Fragment(), SearchContract.View {
         binding.btnSearch.setOnClickListener{
             val query = binding.etSearchPlayerQuery.text.toString()
             presenter.onBtnSearchClicked(query)
+            binding.etSearchPlayerQuery.onEditorAction(EditorInfo.IME_ACTION_DONE)
         }
     }
 

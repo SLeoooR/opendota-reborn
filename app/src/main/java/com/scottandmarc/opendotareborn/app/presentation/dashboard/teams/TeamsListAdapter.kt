@@ -56,8 +56,8 @@ class TeamsListAdapter(
 
             viewHolder.binding.tvTeamRating.text = team.rating.toInt().toString()
 
-            viewHolder.binding.tvTeamWins.text = team.wins.toString()
-            viewHolder.binding.tvTeamLosses.text = team.losses.toString()
+            val winLoseString = "${team.wins} - ${team.losses}"
+            viewHolder.binding.tvTeamWinLose.text = winLoseString
         }
     }
 

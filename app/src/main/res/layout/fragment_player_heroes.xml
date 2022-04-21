@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/app_background_color"
     tools:ignore="HardcodedText"
-    android:padding="16dp"
+    android:padding="8dp"
     android:orientation="vertical"
     tools:context=".app.presentation.dashboard.profile.heroes.PlayerHeroesFragment">
 
@@ -14,7 +14,7 @@
         android:id="@+id/playerHeroListLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
