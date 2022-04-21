@@ -14,6 +14,8 @@ import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.data.player.createPlayerService
 import com.scottandmarc.opendotareborn.app.data.recentMatches.RecentMatchRepository
 import com.scottandmarc.opendotareborn.app.data.recentMatches.createRecentMatchService
+import com.scottandmarc.opendotareborn.app.data.search.SearchRepository
+import com.scottandmarc.opendotareborn.app.data.search.createSearchService
 import com.scottandmarc.opendotareborn.app.data.teams.TeamRepository
 import com.scottandmarc.opendotareborn.app.data.teams.createTeamService
 import com.scottandmarc.opendotareborn.app.data.total.TotalRepository
@@ -82,6 +84,12 @@ object DependencyInjector {
     fun provideTeamRepository() : TeamRepository {
         return TeamRepository(
             createTeamService()
+        )
+    }
+
+    fun provideSearchRepository() : SearchRepository {
+        return SearchRepository(
+            createSearchService()
         )
     }
 }

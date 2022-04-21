@@ -34,7 +34,6 @@ class RecentMatchesListAdapter(
         if (this.processedRecentMatches.isNotEmpty()) {
             val processedRecentMatch: ProcessedRecentMatch = processedRecentMatches[position]
 
-            viewHolder.setIsRecyclable(true)
             if (position % 2 == 0) {
                 viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_background_color))
             } else {
@@ -47,9 +46,13 @@ class RecentMatchesListAdapter(
 
             Log.d("processedMatches", processedRecentMatch.toString())
 
-            val heroInfo = heroInfoRepository.getHeroInfoWhere(processedRecentMatch.heroId)
-            val heroIconPicURL = "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/${heroInfo.name.substring(14)}.png"
-            Picasso.get().load(heroIconPicURL).into(viewHolder.binding.ivHeroIcon)
+            if (processedRecentMatch.heroId != 0) {
+                val heroInfo = heroInfoRepository.getHeroInfoWhere(processedRecentMatch.heroId)
+                val heroIconPicURL = "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/${heroInfo.name.substring(14)}.png"
+                Picasso.get().load(heroIconPicURL).into(viewHolder.binding.ivHeroIcon)
+            } else {
+                viewHolder.binding.ivHeroIcon.setImageResource(R.drawable.ic_question_mark)
+            }
         }
     }
 

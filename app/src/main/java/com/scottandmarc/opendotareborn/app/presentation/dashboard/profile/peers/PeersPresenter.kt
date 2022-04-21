@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class PeersPresenter(
+    private val accountId: Int,
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerRepository: PlayerRepository,
     private val peerRepository: PeerRepository,
@@ -34,17 +35,26 @@ class PeersPresenter(
     }
 
     private fun setup() {
-        val accountId = playerRepository.getPlayer().profile.accountId
+        val accountIdFinal = if (accountId == 0) {
+            playerRepository.getPlayer().profile.accountId
+        } else {
+            accountId
+        }
         coroutineScopeProvider.provide().launch {
             try {
                 view?.showLoadingDialog()
 
                 if (networkConnectionChecker.isNetworkAvailable()) {
-                    peers = peerRepository.fetchPeers(accountId)
+                    peers = peerRepository.fetchPeers(accountIdFinal)
 
                     itemsRemaining = peers.size % itemsPerPage
                     lastPage = peers.size / itemsPerPage
-                    trimmedPeers = peers.subList(0, itemsPerPage)
+
+                    trimmedPeers = if (peers.size >= itemsPerPage) {
+                        peers.subList(0, itemsPerPage)
+                    } else {
+                        peers
+                    }
 
                     view?.setPeers(trimmedPeers)
                     view?.updateRv()

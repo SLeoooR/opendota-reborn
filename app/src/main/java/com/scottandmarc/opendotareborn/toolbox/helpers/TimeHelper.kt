@@ -20,27 +20,117 @@ object TimeHelper {
         when {
             minutes < 60 -> {
                 // Return Minutes
-                return "$minutes mins"
+                return if (minutes == 1L) {
+                    "$minutes min"
+                } else {
+                    "$minutes mins"
+                }
             }
             hours < hoursInDay -> {
                 // Return Hours
-                return "$hours hours"
+                return if (hours == 1L) {
+                    "$hours hour"
+                } else {
+                    "$hours hours"
+                }
             }
             hours in hoursInDay until hoursInWeek -> {
                 // Return Days
-                return "${hours / hoursInDay} days"
+                return if (hours / hoursInDay == 1L) {
+                    "${hours / hoursInDay} day"
+                } else {
+                    "${hours / hoursInDay} days"
+                }
             }
             hours in hoursInWeek until hoursInMonth -> {
                 // Return Weeks
-                return "${hours / hoursInWeek} weeks"
+                return if (hours / hoursInWeek == 1L) {
+                    "${hours / hoursInWeek} week"
+                } else {
+                    "${hours / hoursInWeek} weeks"
+                }
             }
             hours in hoursInMonth until hoursInYear -> {
                 // Return Months
-                return "${hours / hoursInMonth} months"
+                return if (hours / hoursInMonth == 1L) {
+                    "${hours / hoursInMonth} month"
+                } else {
+                    "${hours / hoursInMonth} months"
+                }
             }
             hours < hoursInYear || hours > hoursInYear -> {
                 // Return Years
-                return "${hours / hoursInYear} years"
+                return if (hours / hoursInYear == 1L) {
+                    "${hours / hoursInYear} year"
+                } else {
+                    "${hours / hoursInYear} years"
+                }
+            }
+            else -> {
+                throw Exception("Unknown Format")
+            }
+        }
+    }
+
+    fun numTimeAgoUsingDate(lastDate: Date): String {
+        val currentDate = Timestamp(System.currentTimeMillis()).time
+
+        val difference: Long = kotlin.math.abs(currentDate - lastDate.time)
+        val minutes = (difference / (60 * 1000))
+        val hours = minutes / 60
+
+        val hoursInDay = 24
+        val hoursInWeek = 168
+        val hoursInMonth = 730
+        val hoursInYear = 8760
+        when {
+            minutes < 60 -> {
+                // Return Minutes
+                return if (minutes == 1L) {
+                    "$minutes min"
+                } else {
+                    "$minutes mins"
+                }
+            }
+            hours < hoursInDay -> {
+                // Return Hours
+                return if (hours == 1L) {
+                    "$hours hour"
+                } else {
+                    "$hours hours"
+                }
+            }
+            hours in hoursInDay until hoursInWeek -> {
+                // Return Days
+                return if (hours / hoursInDay == 1L) {
+                    "${hours / hoursInDay} day"
+                } else {
+                    "${hours / hoursInDay} days"
+                }
+            }
+            hours in hoursInWeek until hoursInMonth -> {
+                // Return Weeks
+                return if (hours / hoursInWeek == 1L) {
+                    "${hours / hoursInWeek} week"
+                } else {
+                    "${hours / hoursInWeek} weeks"
+                }
+            }
+            hours in hoursInMonth until hoursInYear -> {
+                // Return Months
+                return if (hours / hoursInMonth == 1L) {
+                    "${hours / hoursInMonth} month"
+                } else {
+                    "${hours / hoursInMonth} months"
+                }
+            }
+            hours < hoursInYear || hours > hoursInYear -> {
+                // Return Years
+                return if (hours / hoursInYear == 1L) {
+                    "${hours / hoursInYear} year"
+                } else {
+                    "${hours / hoursInYear} years"
+                }
             }
             else -> {
                 throw Exception("Unknown Format")

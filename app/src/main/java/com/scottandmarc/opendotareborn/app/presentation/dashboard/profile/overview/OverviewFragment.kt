@@ -15,7 +15,9 @@ import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import com.squareup.picasso.Picasso
 
-class OverviewFragment : Fragment(), OverviewContract.View {
+class OverviewFragment(
+    private val accountId: Int
+) : Fragment(), OverviewContract.View {
 
     private val binding: FragmentOverviewBinding by lazy {
         FragmentOverviewBinding.inflate(layoutInflater)
@@ -41,6 +43,7 @@ class OverviewFragment : Fragment(), OverviewContract.View {
 
     private fun initPresenter(context: Context) {
         presenter = OverviewPresenter(
+            accountId,
             DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(context),
             DependencyInjector.provideRecentMatchRepository(),

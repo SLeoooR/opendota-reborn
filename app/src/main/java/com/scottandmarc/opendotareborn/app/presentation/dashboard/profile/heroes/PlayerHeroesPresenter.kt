@@ -9,6 +9,7 @@ import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
 
 class PlayerHeroesPresenter(
+    private val accountId: Int,
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerRepository: PlayerRepository,
     private val playerHeroRepository: PlayerHeroRepository,
@@ -29,17 +30,26 @@ class PlayerHeroesPresenter(
     }
 
     private fun setup() {
-        val accountId = playerRepository.getPlayer().profile.accountId
+        val accountIdFinal = if (accountId == 0) {
+            playerRepository.getPlayer().profile.accountId
+        } else {
+            accountId
+        }
         coroutineScopeProvider.provide().launch {
             try {
                 view?.showLoadingDialog()
 
                 if (networkConnectionChecker.isNetworkAvailable()) {
-                    playerHeroes = playerHeroRepository.fetchHeroes(accountId)
+                    playerHeroes = playerHeroRepository.fetchHeroes(accountIdFinal)
 
                     itemsRemaining = playerHeroes.size % itemsPerPage
                     lastPage = playerHeroes.size / itemsPerPage
-                    trimmedPlayerHeroes = playerHeroes.subList(0, itemsPerPage)
+
+                    trimmedPlayerHeroes = if (playerHeroes.size >= itemsPerPage) {
+                        playerHeroes.subList(0, itemsPerPage)
+                    } else {
+                        playerHeroes
+                    }
 
                     view?.setPlayerHeroes(trimmedPlayerHeroes)
                     view?.updateRv()

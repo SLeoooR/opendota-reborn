@@ -32,7 +32,6 @@ class TeamsListAdapter(
         if (this.teams.isNotEmpty()) {
             val team: Team = teams[position]
 
-            viewHolder.setIsRecyclable(true)
             if (position % 2 == 0) {
                 viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_background_color))
             } else {

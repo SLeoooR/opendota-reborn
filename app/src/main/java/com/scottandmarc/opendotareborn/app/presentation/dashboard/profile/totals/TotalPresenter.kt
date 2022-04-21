@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class TotalPresenter(
+    private val accountId: Int,
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerRepository: PlayerRepository,
     private val totalRepository: TotalRepository,
@@ -29,13 +30,17 @@ class TotalPresenter(
     }
 
     private fun setup() {
-        val accountId = playerRepository.getPlayer().profile.accountId
+        val accountIdFinal = if (accountId == 0) {
+            playerRepository.getPlayer().profile.accountId
+        } else {
+            accountId
+        }
         coroutineScopeProvider.provide().launch {
             try {
                 view?.showLoadingDialog()
 
                 if (networkConnectionChecker.isNetworkAvailable()) {
-                    totals = totalRepository.fetchTotals(accountId)
+                    totals = totalRepository.fetchTotals(accountIdFinal)
 
                     view?.setTotals(totals)
                     view?.updateRv()

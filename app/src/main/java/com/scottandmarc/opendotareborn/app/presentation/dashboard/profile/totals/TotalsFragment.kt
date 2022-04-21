@@ -13,7 +13,9 @@ import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
-class TotalsFragment : Fragment(), TotalContract.View {
+class TotalsFragment(
+    private val accountId: Int
+) : Fragment(), TotalContract.View {
 
     private val binding: FragmentTotalsBinding by lazy {
         FragmentTotalsBinding.inflate(layoutInflater)
@@ -41,6 +43,7 @@ class TotalsFragment : Fragment(), TotalContract.View {
 
     private fun initPresenter() {
         presenter = TotalPresenter(
+            accountId,
             DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(requireContext()),
             DependencyInjector.provideTotalRepository(),

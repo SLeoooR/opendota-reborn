@@ -15,7 +15,9 @@ import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper.Companion.createLoadingDialog
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
-class PlayerHeroesFragment : Fragment(), PlayerHeroesContract.View {
+class PlayerHeroesFragment(
+    private val accountId: Int
+) : Fragment(), PlayerHeroesContract.View {
 
     private val binding: FragmentPlayerHeroesBinding by lazy {
         FragmentPlayerHeroesBinding.inflate(layoutInflater)
@@ -46,6 +48,7 @@ class PlayerHeroesFragment : Fragment(), PlayerHeroesContract.View {
 
     private fun initPresenter(context: Context) {
         presenter = PlayerHeroesPresenter(
+            accountId,
             DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(context),
             DependencyInjector.providePlayerHeroRepository(),
@@ -106,27 +109,35 @@ class PlayerHeroesFragment : Fragment(), PlayerHeroesContract.View {
     }
 
     override fun toggleButtons() {
-        when (currentPage) {
-            totalPages -> {
-                binding.btnNext.visibility = View.INVISIBLE
-                binding.btnNext.isEnabled = false
+        if (totalPages == 0) {
+            binding.btnNext.visibility = View.INVISIBLE
+            binding.btnNext.isEnabled = false
 
-                binding.btnPrev.visibility = View.VISIBLE
-                binding.btnPrev.isEnabled = true
-            }
-            0 -> {
-                binding.btnNext.visibility = View.VISIBLE
-                binding.btnNext.isEnabled = true
+            binding.btnPrev.visibility = View.INVISIBLE
+            binding.btnPrev.isEnabled = false
+        } else {
+            when (currentPage) {
+                totalPages -> {
+                    binding.btnNext.visibility = View.INVISIBLE
+                    binding.btnNext.isEnabled = false
 
-                binding.btnPrev.visibility = View.INVISIBLE
-                binding.btnPrev.isEnabled = false
-            }
-            in 1..totalPages -> {
-                binding.btnNext.visibility = View.VISIBLE
-                binding.btnNext.isEnabled = true
+                    binding.btnPrev.visibility = View.VISIBLE
+                    binding.btnPrev.isEnabled = true
+                }
+                0 -> {
+                    binding.btnNext.visibility = View.VISIBLE
+                    binding.btnNext.isEnabled = true
 
-                binding.btnPrev.visibility = View.VISIBLE
-                binding.btnPrev.isEnabled = true
+                    binding.btnPrev.visibility = View.INVISIBLE
+                    binding.btnPrev.isEnabled = false
+                }
+                in 1..totalPages -> {
+                    binding.btnNext.visibility = View.VISIBLE
+                    binding.btnNext.isEnabled = true
+
+                    binding.btnPrev.visibility = View.VISIBLE
+                    binding.btnPrev.isEnabled = true
+                }
             }
         }
     }

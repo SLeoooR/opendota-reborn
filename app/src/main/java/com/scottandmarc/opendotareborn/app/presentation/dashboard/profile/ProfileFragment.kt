@@ -18,8 +18,12 @@ import com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.totals
 import com.scottandmarc.opendotareborn.databinding.FragmentProfileBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
+import com.scottandmarc.opendotareborn.toolbox.helpers.NetworkUtils
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
-class ProfileFragment : Fragment(), ProfileContract.View {
+class ProfileFragment(
+    private val accountId: Int
+) : Fragment(), ProfileContract.View {
 
     private val binding: FragmentProfileBinding by lazy {
         FragmentProfileBinding.inflate(layoutInflater)
@@ -52,7 +56,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     private fun initViews() {
-        loadFragment(OverviewFragment())
+        loadFragment(OverviewFragment(accountId))
 
         // Start BottomNavView
         val bottomNav = binding.bottomNav
@@ -60,22 +64,22 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             when (it.itemId) {
                 R.id.nav_bottom_overview -> {
                     //showSteamIcon()
-                    loadFragment(OverviewFragment())
+                    loadFragment(OverviewFragment(accountId))
                 }
                 R.id.nav_bottom_matches -> {
-                    loadFragment(MatchesFragment())
+                    loadFragment(MatchesFragment(accountId))
                     //hideSteamIcon()
                 }
                 R.id.nav_bottom_heroes -> {
-                    loadFragment(PlayerHeroesFragment())
+                    loadFragment(PlayerHeroesFragment(accountId))
                     //hideSteamIcon()
                 }
                 R.id.nav_bottom_peers -> {
-                    loadFragment(PeersFragment())
+                    loadFragment(PeersFragment(accountId))
                     //hideSteamIcon()
                 }
                 R.id.nav_bottom_totals -> {
-                    loadFragment(TotalsFragment())
+                    loadFragment(TotalsFragment(accountId))
                     //hideSteamIcon()
                 }
             }
@@ -95,7 +99,10 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     private fun initPresenter() {
         presenter = ProfilePresenter(
+            accountId,
             DependencyInjector.providePlayerRepository(requireContext()),
+            DependencyInjector.provideCoroutineScopeProvider(),
+            NetworkConnectionChecker(requireContext())
         )
         presenter.onViewReady(this)
     }

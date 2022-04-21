@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class OverviewPresenter(
+    private val accountId: Int,
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerRepository: PlayerRepository,
     private val recentMatchRepository: RecentMatchRepository,
@@ -76,25 +77,47 @@ class OverviewPresenter(
     }
 
     private fun setup() {
-        player = playerRepository.getPlayer()
-        view?.showProfilePic(player.profile.avatarFull)
-        view?.showPlayerName(player.profile.personaName)
+        if (accountId == 0) {
+            player = playerRepository.getPlayer()
+            view?.showProfilePic(player.profile.avatarFull)
+            view?.showPlayerName(player.profile.personaName)
 
-        val rankPicURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${player.rankTier.toString()[0]}.png"
-        val starsPicURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${player.rankTier.toString()[1]}.png"
-        view?.showPlayerRankPic(rankPicURL, starsPicURL)
-        view?.showPlayerWins(player.winLose.win)
-        view?.showPlayerLosses(player.winLose.lose)
+            val rankPicURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${player.rankTier.toString()[0]}.png"
+            val starsPicURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${player.rankTier.toString()[1]}.png"
+            view?.showPlayerRankPic(rankPicURL, starsPicURL)
+            view?.showPlayerWins(player.winLose.win)
+            view?.showPlayerLosses(player.winLose.lose)
 
-        val winRate = player.winLose.win.toFloat() / (player.winLose.win.toFloat() + player.winLose.lose.toFloat())
-        view?.showPlayerWinRate(winRate * 100)
+            val winRate = player.winLose.win.toFloat() / (player.winLose.win.toFloat() + player.winLose.lose.toFloat())
+            view?.showPlayerWinRate(winRate * 100)
+        }
 
         coroutineScopeProvider.provide().launch {
             try {
                 view?.showLoadingDialog()
 
                 if (networkConnectionChecker.isNetworkAvailable()) {
-                    recentMatches = recentMatchRepository.fetchRecentMatches(player.profile.accountId)
+                    if (accountId != 0) {
+                        player = playerRepository.fetchPlayer(accountId)
+
+                        view?.showProfilePic(player.profile.avatarFull)
+                        view?.showPlayerName(player.profile.personaName)
+
+                        val rankPicURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${player.rankTier.toString()[0]}.png"
+                        val starsPicURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${player.rankTier.toString()[1]}.png"
+                        view?.showPlayerRankPic(rankPicURL, starsPicURL)
+                        view?.showPlayerWins(player.winLose.win)
+                        view?.showPlayerLosses(player.winLose.lose)
+
+                        val winRate = player.winLose.win.toFloat() / (player.winLose.win.toFloat() + player.winLose.lose.toFloat())
+                        view?.showPlayerWinRate(winRate * 100)
+                    }
+
+                    recentMatches = if (accountId == 0) {
+                        recentMatchRepository.fetchRecentMatches(player.profile.accountId)
+                    } else {
+                        recentMatchRepository.fetchRecentMatches(accountId)
+                    }
 
                     recentMatches.forEach {
                         if (it.kills > maxKills) {

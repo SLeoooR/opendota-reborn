@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class MatchesPresenter(
+    private val accountId: Int,
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerRepository: PlayerRepository,
     private val matchRepository: MatchRepository,
@@ -34,17 +35,26 @@ class MatchesPresenter(
     }
 
     private fun setup() {
-        val accountId = playerRepository.getPlayer().profile.accountId
+        val accountIdFinal = if (accountId == 0) {
+            playerRepository.getPlayer().profile.accountId
+        } else {
+            accountId
+        }
         coroutineScopeProvider.provide().launch {
             try {
                 view?.showLoadingDialog()
 
                 if (networkConnectionChecker.isNetworkAvailable()) {
-                    matches = matchRepository.fetchMatches(accountId)
+                    matches = matchRepository.fetchMatches(accountIdFinal)
 
                     itemsRemaining = matches.size % itemsPerPage
                     lastPage = matches.size / itemsPerPage
-                    trimmedMatches = matches.subList(0, itemsPerPage)
+
+                    trimmedMatches = if (matches.size >= itemsPerPage) {
+                        matches.subList(0, itemsPerPage)
+                    } else {
+                        matches
+                    }
 
                     view?.setMatches(trimmedMatches)
                     view?.updateRv()

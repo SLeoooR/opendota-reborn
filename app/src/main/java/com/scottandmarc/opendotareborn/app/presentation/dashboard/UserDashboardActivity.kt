@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.HeroesFragment
@@ -43,7 +44,9 @@ class UserDashboardActivity : AppCompatActivity(),
         bindingNavView.nvLayout.setNavigationItemSelectedListener(this)
         // End Toolbar Views
 
-        loadFragment(ProfileFragment())
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(bindingNavView.activityUserDashboard.contentFrameUserDashboard.id, ProfileFragment(0))
+        transaction.commit()
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -58,7 +61,7 @@ class UserDashboardActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_profile -> {
-                loadFragment(ProfileFragment())
+                loadFragment(ProfileFragment(0))
             }
             R.id.nav_search_player -> {
                 loadFragment(SearchFragment())
@@ -75,5 +78,9 @@ class UserDashboardActivity : AppCompatActivity(),
         }
         bindingNavView.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onBackPressed() {
+        // super.onBackPressed()
     }
 }

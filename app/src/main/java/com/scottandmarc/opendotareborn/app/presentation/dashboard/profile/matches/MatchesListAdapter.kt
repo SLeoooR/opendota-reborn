@@ -34,8 +34,6 @@ class MatchesListAdapter(
         val heroInfoRepository = DependencyInjector.provideHeroInfoRepository(viewHolder.binding.root.context)
         if (this.matchesList.isNotEmpty()) {
             val match: Match = matchesList[position]
-
-            viewHolder.setIsRecyclable(true)
             if (position % 2 == 0) {
                 viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_background_color))
             } else {

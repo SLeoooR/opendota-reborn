@@ -1,60 +1,121 @@
 package com.scottandmarc.opendotareborn.app.presentation.dashboard.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.scottandmarc.opendotareborn.R
+import com.scottandmarc.opendotareborn.app.domain.entities.Search
+import com.scottandmarc.opendotareborn.databinding.FragmentSearchBinding
+import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class SearchFragment : Fragment(), SearchContract.View {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SearchFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val binding: FragmentSearchBinding by lazy {
+        FragmentSearchBinding.inflate(layoutInflater)
     }
+
+    private lateinit var presenter: SearchContract.Presenter
+    private lateinit var searches: List<Search>
+    private lateinit var loadingDialog: AlertDialog
+    private lateinit var searchListAdapter: SearchListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SearchFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initToolbar()
+        initPresenter()
+        initViews()
+    }
+
+    private fun initViews() {
+        binding.btnSearch.isEnabled = false
+        binding.btnSearch.alpha = .5f
+
+        binding.etSearchPlayerQuery.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if (s.isNotEmpty()) {
+                        binding.btnSearch.isEnabled = true
+                        binding.btnSearch.alpha = 1F
+                    } else {
+                        binding.btnSearch.isEnabled = false
+                        binding.btnSearch.alpha = .5F
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {
                 }
             }
+        )
+
+        binding.btnSearch.setOnClickListener{
+            val query = binding.etSearchPlayerQuery.text.toString()
+            presenter.onBtnSearchClicked(query)
+        }
+    }
+
+    private fun initPresenter() {
+        presenter = SearchPresenter(
+            DependencyInjector.provideCoroutineScopeProvider(),
+            DependencyInjector.provideSearchRepository(),
+            NetworkConnectionChecker(requireContext())
+        )
+        presenter.onViewReady(this)
+    }
+
+    private fun initToolbar() {
+        val toolbar = activity?.findViewById<Toolbar>(R.id.tbUserDashboardView)
+        toolbar?.title = "Search Player"
+        toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+    }
+
+    override fun showLoadingDialog() {
+        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
+        loadingDialog.show()
+    }
+
+    override fun dismissLoadingDialog() {
+        loadingDialog.dismiss()
+    }
+
+    override fun setSearches(searches: List<Search>) {
+        this.searches = searches
+    }
+
+    override fun updateRv() {
+        // Assign RV
+        val rvSearches = binding.rvSearches
+
+        //Init RecyclerView
+        searchListAdapter = SearchListAdapter(searches)
+
+        rvSearches.layoutManager = LinearLayoutManager(this.context)
+        rvSearches.adapter = searchListAdapter
     }
 }
