@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="HardcodedText">
+
+    <item
+        android:id="@+id/nav_bottom_pro"
+        android:enabled="true"
+        android:title="Pro"
+        android:icon="@drawable/ic_verified"/>
+    <item
+        android:id="@+id/nav_bottom_pub"
+        android:enabled="true"
+        android:title="Pub"
+        android:icon="@drawable/ic_public"/>
+    <item
+        android:id="@+id/nav_bottom_turbo"
+        android:enabled="true"
+        android:title="Turbo"
+        android:icon="@drawable/ic_bolt"/>
+
+</menu>

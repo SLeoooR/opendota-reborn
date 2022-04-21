@@ -6,6 +6,8 @@ import com.scottandmarc.opendotareborn.app.data.hero.info.HeroInfoRepository
 import com.scottandmarc.opendotareborn.app.data.hero.info.createHeroInfoService
 import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
 import com.scottandmarc.opendotareborn.app.data.hero.player.createPlayerHeroService
+import com.scottandmarc.opendotareborn.app.data.heroStats.HeroStatsRepository
+import com.scottandmarc.opendotareborn.app.data.heroStats.createHeroStatsService
 import com.scottandmarc.opendotareborn.app.data.matches.MatchRepository
 import com.scottandmarc.opendotareborn.app.data.matches.createMatchService
 import com.scottandmarc.opendotareborn.app.data.peers.PeerRepository
@@ -90,6 +92,12 @@ object DependencyInjector {
     fun provideSearchRepository() : SearchRepository {
         return SearchRepository(
             createSearchService()
+        )
+    }
+
+    fun provideHeroStatsRepository() : HeroStatsRepository {
+        return HeroStatsRepository(
+            createHeroStatsService()
         )
     }
 }

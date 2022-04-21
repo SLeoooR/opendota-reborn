@@ -16,7 +16,7 @@
         android:paddingEnd="8dp">
 
         <TextView
-            android:text="Stats"
+            android:text="STATS"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -25,7 +25,7 @@
             android:padding="8dp" />
 
         <TextView
-            android:text="Average"
+            android:text="AVERAGE"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -33,7 +33,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:text="Maximum"
+            android:text="MAXIMUM"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -41,7 +41,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:text="By Hero"
+            android:text="BY HERO"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"

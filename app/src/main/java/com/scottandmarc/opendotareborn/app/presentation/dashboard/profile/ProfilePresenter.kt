@@ -7,10 +7,7 @@ import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
 class ProfilePresenter(
-    private val accountId: Int,
     private val playerRepository: PlayerRepository,
-    private val coroutineScopeProvider: CoroutineScopeProvider,
-    private val networkConnectionChecker: NetworkConnectionChecker
 ) : ProfileContract.Presenter {
 
     private var view: ProfileContract.View? = null
@@ -22,11 +19,7 @@ class ProfilePresenter(
     }
 
     private fun setup() {
-        if (accountId != 0) {
-            player = playerRepository.getPlayer()
-        } else {
-
-        }
+        player = playerRepository.getPlayer()
     }
 
     override fun onViewDetach() {

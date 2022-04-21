@@ -16,7 +16,7 @@
         android:paddingEnd="8dp">
 
         <TextView
-            android:text="Hero"
+            android:text="HERO"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -33,7 +33,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:text="WR"
+            android:text="WIN%"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -41,7 +41,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:text="Last Played"
+            android:text="LAST PLAYED"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"

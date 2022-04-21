@@ -5,56 +5,104 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.scottandmarc.opendotareborn.R
+import com.scottandmarc.opendotareborn.app.domain.entities.HeroStats
+import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.pro.ProFragment
+import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.pub.PubFragment
+import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.turbo.TurboFragment
+import com.scottandmarc.opendotareborn.databinding.FragmentHeroesBinding
+import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
+import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class HeroesFragment : Fragment(), HeroesContract.View {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HeroesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class HeroesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val binding: FragmentHeroesBinding by lazy {
+        FragmentHeroesBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_heroes, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HeroesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HeroesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private lateinit var presenter: HeroesContract.Presenter
+    private lateinit var heroesStats: List<HeroStats>
+    private lateinit var loadingDialog: AlertDialog
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initViews()
+        initToolbar()
+        initPresenter()
+    }
+
+    private fun initPresenter() {
+        presenter = HeroesPresenter(
+            DependencyInjector.provideCoroutineScopeProvider(),
+            DependencyInjector.provideHeroStatsRepository(),
+            NetworkConnectionChecker(requireContext())
+        )
+        presenter.onViewReady(this)
+    }
+
+    private fun initToolbar() {
+        val toolbar = activity?.findViewById<Toolbar>(R.id.tbUserDashboardView)
+        toolbar?.title = "Heroes"
+        toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+    }
+
+    private fun initViews() {
+        // Start BottomNavView
+        val bottomNav = binding.bottomNav
+        bottomNav.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_bottom_pro -> {
+                    //showSteamIcon()
+                    loadFragment(ProFragment(heroesStats))
+                }
+                R.id.nav_bottom_pub -> {
+                    loadFragment(PubFragment())
+                    //hideSteamIcon()
+                }
+                R.id.nav_bottom_turbo -> {
+                    loadFragment(TurboFragment())
+                    //hideSteamIcon()
                 }
             }
+            true
+        }
+        // End Bottom NavView
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        // Show Overview Fragment
+        val contentFrameId = binding.contentFrameHeroes.id
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.replace(contentFrameId, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    override fun setHeroesStats(heroesStats: List<HeroStats>) {
+        this.heroesStats = heroesStats
+
+        loadFragment(ProFragment(this.heroesStats))
+    }
+
+    override fun showLoadingDialog() {
+        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
+        loadingDialog.show()
+    }
+
+    override fun dismissLoadingDialog() {
+        loadingDialog.dismiss()
     }
 }

@@ -99,10 +99,7 @@ class ProfileFragment(
 
     private fun initPresenter() {
         presenter = ProfilePresenter(
-            accountId,
             DependencyInjector.providePlayerRepository(requireContext()),
-            DependencyInjector.provideCoroutineScopeProvider(),
-            NetworkConnectionChecker(requireContext())
         )
         presenter.onViewReady(this)
     }
