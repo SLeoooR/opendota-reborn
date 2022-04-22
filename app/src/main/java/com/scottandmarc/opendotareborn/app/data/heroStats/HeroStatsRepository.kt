@@ -67,7 +67,6 @@ class HeroStatsRepository(
                     this.immortalWin,
                     this.nullPick,
                     this.nullWin,
-                    if (this.proWin != 0) ((this.proWin / this.proPick) * 100).toFloat() else this.proWin.toFloat()
                 )
             }
 

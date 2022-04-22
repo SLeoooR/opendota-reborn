@@ -24,7 +24,6 @@ class OverviewFragment(
     }
 
     private lateinit var presenter: OverviewContract.Presenter
-    private lateinit var loadingDialog: AlertDialog
     private lateinit var processedRecentMatches: List<ProcessedRecentMatch>
     private lateinit var recentMatchesListAdapter: RecentMatchesListAdapter
 
@@ -79,12 +78,11 @@ class OverviewFragment(
     }
 
     override fun showLoadingDialog() {
-        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
-        loadingDialog.show()
+        binding.loadingLayout.visibility = View.VISIBLE
     }
 
     override fun dismissLoadingDialog() {
-        loadingDialog.dismiss()
+        binding.loadingLayout.visibility = View.INVISIBLE
     }
 
     override fun setProcessedRecentMatches(processedRecentMatches: MutableList<ProcessedRecentMatch>) {

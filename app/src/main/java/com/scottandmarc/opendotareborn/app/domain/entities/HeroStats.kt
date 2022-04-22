@@ -54,5 +54,5 @@ data class HeroStats(
     val immortalWin: Int,
     val nullPick: Int,
     val nullWin: Int,
-    val winRate: Float
+    val winRate: Float = if (proWin != 0) ((proWin.toFloat() / proPick.toFloat()) * 100.0F) else proWin.toFloat()
 )

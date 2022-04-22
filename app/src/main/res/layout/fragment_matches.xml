@@ -50,4 +50,18 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        tools:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background_color">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

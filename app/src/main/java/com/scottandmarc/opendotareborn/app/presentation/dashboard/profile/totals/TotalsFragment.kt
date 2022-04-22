@@ -25,8 +25,6 @@ class TotalsFragment(
     private lateinit var totals: List<Total>
     private lateinit var totalListAdapter: TotalListAdapter
 
-    private lateinit var loadingDialog: AlertDialog
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,11 +66,10 @@ class TotalsFragment(
     }
 
     override fun showLoadingDialog() {
-        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
-        loadingDialog.show()
+        binding.loadingLayout.visibility = View.VISIBLE
     }
 
     override fun dismissLoadingDialog() {
-        loadingDialog.dismiss()
+        binding.loadingLayout.visibility = View.INVISIBLE
     }
 }

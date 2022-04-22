@@ -27,8 +27,6 @@ class PlayerHeroesFragment(
     private lateinit var rvPlayerHeroesAdapter: PlayerHeroesListAdapter
     private lateinit var playerHeroes: List<PlayerHero>
 
-    private lateinit var loadingDialog: AlertDialog
-
     private var currentPage = 0
     private var totalPages = 0
 
@@ -143,11 +141,10 @@ class PlayerHeroesFragment(
     }
 
     override fun showLoadingDialog() {
-        loadingDialog = createLoadingDialog(requireContext(), layoutInflater)
-        loadingDialog.show()
+        binding.loadingLayout.visibility = View.VISIBLE
     }
 
     override fun dismissLoadingDialog() {
-        loadingDialog.dismiss()
+        binding.loadingLayout.visibility = View.INVISIBLE
     }
 }

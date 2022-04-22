@@ -26,7 +26,9 @@ class HeroesPresenter(
                 view?.showLoadingDialog()
 
                 if (networkConnectionChecker.isNetworkAvailable()) {
-                    val heroesStats = heroStatsRepository.fetchHeroesStats()
+                    val heroesStats = heroStatsRepository.fetchHeroesStats().sortedBy {
+                        it.localizedName
+                    }
 
                     view?.setHeroesStats(heroesStats)
                 }

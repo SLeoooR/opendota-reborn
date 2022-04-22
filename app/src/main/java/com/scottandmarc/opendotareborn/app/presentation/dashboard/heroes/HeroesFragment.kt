@@ -34,7 +34,6 @@ class HeroesFragment : Fragment(), HeroesContract.View {
 
     private lateinit var presenter: HeroesContract.Presenter
     private lateinit var heroesStats: List<HeroStats>
-    private lateinit var loadingDialog: AlertDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -98,11 +97,10 @@ class HeroesFragment : Fragment(), HeroesContract.View {
     }
 
     override fun showLoadingDialog() {
-        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
-        loadingDialog.show()
+        binding.loadingLayout.visibility = View.VISIBLE
     }
 
     override fun dismissLoadingDialog() {
-        loadingDialog.dismiss()
+        binding.loadingLayout.visibility = View.INVISIBLE
     }
 }

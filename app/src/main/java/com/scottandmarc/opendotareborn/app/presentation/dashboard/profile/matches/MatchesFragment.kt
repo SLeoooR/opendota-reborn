@@ -27,8 +27,6 @@ class MatchesFragment(
     private lateinit var rvMatchesListAdapter: MatchesListAdapter
     private lateinit var matches: List<Match>
 
-    private lateinit var loadingDialog: AlertDialog
-
     private var currentPage = 0
     private var totalPages = 0
 
@@ -143,11 +141,10 @@ class MatchesFragment(
     }
 
     override fun showLoadingDialog() {
-        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
-        loadingDialog.show()
+        binding.loadingLayout.visibility = View.VISIBLE
     }
 
     override fun dismissLoadingDialog() {
-        loadingDialog.dismiss()
+        binding.loadingLayout.visibility = View.INVISIBLE
     }
 }

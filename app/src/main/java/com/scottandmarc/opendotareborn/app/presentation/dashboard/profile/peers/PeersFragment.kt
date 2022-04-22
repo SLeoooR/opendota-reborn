@@ -26,8 +26,6 @@ class PeersFragment(
     private lateinit var peers: List<Peer>
     private lateinit var peersListAdapter: PeersListAdapter
 
-    private lateinit var loadingDialog: AlertDialog
-
     private var currentPage = 0
     private var totalPages = 0
 
@@ -142,11 +140,10 @@ class PeersFragment(
     }
 
     override fun showLoadingDialog() {
-        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
-        loadingDialog.show()
+        binding.loadingLayout.visibility = View.VISIBLE
     }
 
     override fun dismissLoadingDialog() {
-        loadingDialog.dismiss()
+        binding.loadingLayout.visibility = View.INVISIBLE
     }
 }

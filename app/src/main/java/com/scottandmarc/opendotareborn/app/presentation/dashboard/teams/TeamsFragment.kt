@@ -25,7 +25,6 @@ class TeamsFragment : Fragment(), TeamsContract.View {
     }
 
     private lateinit var presenter: TeamsContract.Presenter
-    private lateinit var loadingDialog: AlertDialog
     private lateinit var teams: List<Team>
     private lateinit var teamsListAdapter: TeamsListAdapter
 
@@ -60,12 +59,11 @@ class TeamsFragment : Fragment(), TeamsContract.View {
     }
 
     override fun showLoadingDialog() {
-        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
-        loadingDialog.show()
+        binding.loadingLayout.visibility = View.VISIBLE
     }
 
     override fun dismissLoadingDialog() {
-        loadingDialog.dismiss()
+        binding.loadingLayout.visibility = View.INVISIBLE
     }
 
     override fun setTeams(teams: List<Team>) {

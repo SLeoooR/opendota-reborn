@@ -7,7 +7,7 @@ class ProPresenter(
 ) : ProContract.Presenter {
 
     private var view: ProContract.View? = null
-    private var heroHeaderAscending = true
+    private var heroHeaderAscending = false
     private var pickHeaderAscending = true
     private var banHeaderAscending = true
     private var winHeaderAscending = true
