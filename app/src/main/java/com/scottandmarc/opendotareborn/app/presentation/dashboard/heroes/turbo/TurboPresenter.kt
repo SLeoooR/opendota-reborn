@@ -1,15 +1,14 @@
-package com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.pro
+package com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.turbo
 
 import com.scottandmarc.opendotareborn.app.domain.entities.HeroStats
 
-class ProPresenter(
+class TurboPresenter(
     private val heroesStats: List<HeroStats>
-) : ProContract.Presenter {
+) : TurboContract.Presenter {
 
-    private var view: ProContract.View? = null
+    private var view: TurboContract.View? = null
     private var heroHeaderAscending = false
     private var pickHeaderAscending = true
-    private var banHeaderAscending = true
     private var winHeaderAscending = true
 
     override fun onHeroHeaderClicked() {
@@ -35,35 +34,17 @@ class ProPresenter(
             pickHeaderAscending = false
 
             heroesStats.sortedBy {
-                it.proPick
+                it.turboPicks
             }
         } else {
             pickHeaderAscending = true
 
             heroesStats.sortedByDescending {
-                it.proPick
+                it.turboPicks
             }
         }
 
         view?.updateRv(pickHeaderSorted)
-    }
-
-    override fun onBanHeaderClicked() {
-        val banHeaderSorted = if (banHeaderAscending) {
-            banHeaderAscending = false
-
-            heroesStats.sortedBy {
-                it.proBan
-            }
-        } else {
-            banHeaderAscending = true
-
-            heroesStats.sortedByDescending {
-                it.proBan
-            }
-        }
-
-        view?.updateRv(banHeaderSorted)
     }
 
     override fun onWinHeaderClicked() {
@@ -71,20 +52,20 @@ class ProPresenter(
             winHeaderAscending = false
 
             heroesStats.sortedBy {
-                it.winRatePro
+                it.winRateTurbo
             }
         } else {
             winHeaderAscending = true
 
             heroesStats.sortedByDescending {
-                it.winRatePro
+                it.winRateTurbo
             }
         }
 
         view?.updateRv(winHeaderSorted)
     }
 
-    override fun onViewReady(view: ProContract.View) {
+    override fun onViewReady(view: TurboContract.View) {
         this.view = view
     }
 

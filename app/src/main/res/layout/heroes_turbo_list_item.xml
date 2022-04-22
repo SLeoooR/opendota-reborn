@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/app_card_color"
+    tools:ignore="HardcodedText">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivHeroIcon"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/steam_icon"/>
+
+    <TextView
+        android:id="@+id/tvHeroName"
+        android:text="Abaddon"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="2"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tvHeroPickRate"
+        android:text="8.8%"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/tvHeroWinRate"
+        android:text="54.8%"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

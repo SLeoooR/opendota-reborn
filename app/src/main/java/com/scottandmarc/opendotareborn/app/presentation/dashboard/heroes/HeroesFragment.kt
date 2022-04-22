@@ -72,7 +72,7 @@ class HeroesFragment : Fragment(), HeroesContract.View {
                     //hideSteamIcon()
                 }
                 R.id.nav_bottom_turbo -> {
-                    loadFragment(TurboFragment())
+                    loadFragment(TurboFragment(heroesStats))
                     //hideSteamIcon()
                 }
             }
