@@ -55,5 +55,16 @@ data class HeroStats(
     val nullPick: Int,
     val nullWin: Int,
     val winRatePro: Float = if (proWin != 0) ((proWin.toFloat() / proPick.toFloat()) * 100.0F) else proWin.toFloat(),
-    val winRateTurbo: Float = if (turboWins != 0) ((turboWins.toFloat() / turboPicks.toFloat()) * 100.0F) else turboWins.toFloat()
+    val winRateTurbo: Float = if (turboWins != 0) ((turboWins.toFloat() / turboPicks.toFloat()) * 100.0F) else turboWins.toFloat(),
+    val overallWins: Int = heraldWin + guardianWin + crusaderWin + archonWin + legendWin + ancientWin + divineWin + immortalWin,
+    val overallPicks: Int = heraldPick + guardianPick + crusaderPick + archonPick + legendPick + ancientPick + divinePick + immortalPick,
+    val winRateOverall: Float = if (overallWins != 0) ((overallWins.toFloat() / overallPicks.toFloat()) * 100.0F) else overallWins.toFloat(),
+    val winRateHerald: Float = if (heraldWin != 0) ((heraldWin.toFloat() / heraldPick.toFloat()) * 100.0F) else heraldWin.toFloat(),
+    val winRateGuardian: Float = if (guardianWin != 0) ((guardianWin.toFloat() / guardianPick.toFloat()) * 100.0F) else guardianWin.toFloat(),
+    val winRateCrusader: Float = if (crusaderWin != 0) ((crusaderWin.toFloat() / crusaderPick.toFloat()) * 100.0F) else crusaderWin.toFloat(),
+    val winRateArchon: Float = if (archonWin != 0) ((archonWin.toFloat() / archonPick.toFloat()) * 100.0F) else archonWin.toFloat(),
+    val winRateLegend: Float = if (legendWin != 0) ((legendWin.toFloat() / legendPick.toFloat()) * 100.0F) else legendWin.toFloat(),
+    val winRateAncient: Float = if (ancientWin != 0) ((ancientWin.toFloat() / ancientPick.toFloat()) * 100.0F) else ancientWin.toFloat(),
+    val winRateDivine: Float = if (divineWin != 0) ((divineWin.toFloat() / divinePick.toFloat()) * 100.0F) else divineWin.toFloat(),
+    val winRateImmortal: Float = if (immortalWin != 0) ((immortalWin.toFloat() / immortalPick.toFloat()) * 100.0F) else immortalWin.toFloat(),
 )

@@ -31,6 +31,8 @@ class HeroesPresenter(
                     }
 
                     view?.setHeroesStats(heroesStats)
+                } else {
+                    view?.setHeroesStats(listOf())
                 }
 
                 view?.dismissLoadingDialog()

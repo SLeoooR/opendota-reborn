@@ -8,8 +8,8 @@ class TurboPresenter(
 
     private var view: TurboContract.View? = null
     private var heroHeaderAscending = false
-    private var pickHeaderAscending = true
-    private var winHeaderAscending = true
+    private var pickHeaderAscending = false
+    private var winHeaderAscending = false
 
     override fun onHeroHeaderClicked() {
         val heroHeaderSorted = if (heroHeaderAscending) {

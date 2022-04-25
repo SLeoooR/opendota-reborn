@@ -5,56 +5,197 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.scottandmarc.opendotareborn.R
+import com.scottandmarc.opendotareborn.app.domain.entities.HeroStats
+import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.turbo.TurboContract
+import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.turbo.TurboHeroesListAdapter
+import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.turbo.TurboPresenter
+import com.scottandmarc.opendotareborn.databinding.FragmentPubBinding
+import com.scottandmarc.opendotareborn.databinding.FragmentTurboBinding
+import com.squareup.picasso.Picasso
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class PubFragment(
+    private val heroesStats: List<HeroStats>
+) : Fragment(), PubContract.View {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PubFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PubFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var totalPubPick = 0
+    private var totalHeraldPick = 0
+    private var totalGuardianPick = 0
+    private var totalCrusaderPick = 0
+    private var totalArchonPick = 0
+    private var totalLegendPick = 0
+    private var totalAncientPick = 0
+    private var totalDivinePick = 0
+    private var totalImmortalPick = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private lateinit var totalPicksPerRank: List<Int>
+
+    private lateinit var presenter: PubContract.Presenter
+    private var category = "all"
+
+    private val binding: FragmentPubBinding by lazy {
+        FragmentPubBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pub, container, false)
+        heroesStats.forEach {
+            totalPubPick += it.overallPicks
+            totalHeraldPick += it.heraldPick
+            totalGuardianPick += it.guardianPick
+            totalCrusaderPick += it.crusaderPick
+            totalArchonPick += it.archonPick
+            totalLegendPick += it.legendPick
+            totalAncientPick += it.ancientPick
+            totalDivinePick += it.divinePick
+            totalImmortalPick += it.immortalPick
+        }
+
+        totalPicksPerRank = listOf(
+            totalPubPick,
+            totalHeraldPick,
+            totalGuardianPick,
+            totalCrusaderPick,
+            totalArchonPick,
+            totalLegendPick,
+            totalAncientPick,
+            totalDivinePick,
+            totalImmortalPick,
+        )
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PubFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PubFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initRv()
+        initPresenter()
+        initViews()
+    }
+
+    private fun initViews() {
+        binding.tvHeroHeader.setOnClickListener{
+            presenter.onHeroHeaderClicked()
+        }
+        binding.tvPickHeader.setOnClickListener {
+            presenter.onPickHeaderClicked(category)
+        }
+        binding.tvWinHeader.setOnClickListener {
+            presenter.onWinHeaderClicked(category)
+        }
+
+        Picasso.get().load("https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_1.png").error(R.drawable.ic_question_mark).placeholder(R.drawable.ic_question_mark).into(binding.btnHerald)
+        Picasso.get().load("https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_2.png").error(R.drawable.ic_question_mark).placeholder(R.drawable.ic_question_mark).into(binding.btnGuardian)
+        Picasso.get().load("https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_3.png").error(R.drawable.ic_question_mark).placeholder(R.drawable.ic_question_mark).into(binding.btnCrusader)
+        Picasso.get().load("https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_4.png").error(R.drawable.ic_question_mark).placeholder(R.drawable.ic_question_mark).into(binding.btnArchon)
+        Picasso.get().load("https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_5.png").error(R.drawable.ic_question_mark).placeholder(R.drawable.ic_question_mark).into(binding.btnLegend)
+        Picasso.get().load("https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_6.png").error(R.drawable.ic_question_mark).placeholder(R.drawable.ic_question_mark).into(binding.btnAncient)
+        Picasso.get().load("https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_7.png").error(R.drawable.ic_question_mark).placeholder(R.drawable.ic_question_mark).into(binding.btnDivine)
+        Picasso.get().load("https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_8.png").error(R.drawable.ic_question_mark).placeholder(R.drawable.ic_question_mark).into(binding.btnImmortal)
+
+        fun clearBtnAlphas() {
+            binding.btnAll.alpha = 0.5F
+            binding.btnHerald.alpha = 0.5F
+            binding.btnGuardian.alpha = 0.5F
+            binding.btnCrusader.alpha = 0.5F
+            binding.btnArchon.alpha = 0.5F
+            binding.btnLegend.alpha = 0.5F
+            binding.btnAncient.alpha = 0.5F
+            binding.btnDivine.alpha = 0.5F
+            binding.btnImmortal.alpha = 0.5F
+        }
+
+        clearBtnAlphas()
+        binding.btnAll.alpha = 1F
+
+        binding.btnAll.setOnClickListener {
+            presenter.onAllBtnClicked()
+            clearBtnAlphas()
+            binding.btnAll.alpha = 1F
+        }
+
+        binding.btnHerald.setOnClickListener {
+            presenter.onHeraldBtnClicked()
+            clearBtnAlphas()
+            binding.btnHerald.alpha = 1F
+        }
+
+        binding.btnGuardian.setOnClickListener {
+            presenter.onGuardianBtnClicked()
+            clearBtnAlphas()
+            binding.btnGuardian.alpha = 1F
+        }
+
+        binding.btnCrusader.setOnClickListener {
+            presenter.onCrusaderBtnClicked()
+            clearBtnAlphas()
+            binding.btnCrusader.alpha = 1F
+        }
+
+        binding.btnArchon.setOnClickListener {
+            presenter.onArchonBtnClicked()
+            clearBtnAlphas()
+            binding.btnArchon.alpha = 1F
+        }
+
+        binding.btnLegend.setOnClickListener {
+            presenter.onLegendBtnClicked()
+            clearBtnAlphas()
+            binding.btnLegend.alpha = 1F
+        }
+
+        binding.btnAncient.setOnClickListener {
+            presenter.onAncientBtnClicked()
+            clearBtnAlphas()
+            binding.btnAncient.alpha = 1F
+        }
+
+        binding.btnDivine.setOnClickListener {
+            presenter.onDivineBtnClicked()
+            clearBtnAlphas()
+            binding.btnDivine.alpha = 1F
+        }
+
+        binding.btnImmortal.setOnClickListener {
+            presenter.onImmortalBtnClicked()
+            clearBtnAlphas()
+            binding.btnImmortal.alpha = 1F
+        }
+    }
+
+    private fun initPresenter() {
+        presenter = PubPresenter(
+            heroesStats
+        )
+        presenter.onViewReady(this)
+    }
+
+    private fun initRv() {
+        val rvMatches = binding.rvPlayerHeroes
+
+        val rvPubHeroesListAdapter = PubHeroesListAdapter(heroesStats, totalPicksPerRank, category)
+
+        rvMatches.layoutManager = LinearLayoutManager(this.context)
+        rvMatches.adapter = rvPubHeroesListAdapter
+    }
+
+    override fun updateRv(sortedHeroesStats: List<HeroStats>) {
+        val rvMatches = binding.rvPlayerHeroes
+
+        val rvPubHeroesListAdapter = PubHeroesListAdapter(sortedHeroesStats, totalPicksPerRank, category)
+
+        rvMatches.layoutManager = LinearLayoutManager(this.context)
+        rvMatches.adapter = rvPubHeroesListAdapter
+    }
+
+    override fun updateCategory(category: String) {
+        this.category = category
     }
 }

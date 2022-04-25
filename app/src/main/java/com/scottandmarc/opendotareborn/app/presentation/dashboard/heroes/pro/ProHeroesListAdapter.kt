@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.HeroStats
 import com.scottandmarc.opendotareborn.databinding.HeroesProListItemBinding
@@ -39,7 +40,14 @@ class ProHeroesListAdapter(
                 viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_card_color))
             }
 
-            Picasso.get().load("https://steamcdn-a.akamaihd.net${heroStats.img}").error(R.drawable.ic_question_mark).into(viewHolder.binding.ivHeroIcon)
+            val circularProgressDrawable = CircularProgressDrawable(viewHolder.itemView.context).apply {
+                strokeWidth = 5F
+                centerRadius = 15F
+                setColorSchemeColors(ContextCompat.getColor(viewHolder.itemView.context, R.color.white))
+                start()
+            }
+
+            Picasso.get().load("https://steamcdn-a.akamaihd.net${heroStats.img}").error(R.drawable.ic_question_mark).placeholder(circularProgressDrawable).into(viewHolder.binding.ivHeroIcon)
             viewHolder.binding.tvHeroName.text = heroStats.localizedName
 
 

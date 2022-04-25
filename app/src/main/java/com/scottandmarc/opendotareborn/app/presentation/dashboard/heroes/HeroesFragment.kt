@@ -34,6 +34,7 @@ class HeroesFragment : Fragment(), HeroesContract.View {
 
     private lateinit var presenter: HeroesContract.Presenter
     private lateinit var heroesStats: List<HeroStats>
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,7 +69,7 @@ class HeroesFragment : Fragment(), HeroesContract.View {
                     loadFragment(ProFragment(heroesStats))
                 }
                 R.id.nav_bottom_pub -> {
-                    loadFragment(PubFragment())
+                    loadFragment(PubFragment(heroesStats))
                     //hideSteamIcon()
                 }
                 R.id.nav_bottom_turbo -> {
@@ -97,10 +98,11 @@ class HeroesFragment : Fragment(), HeroesContract.View {
     }
 
     override fun showLoadingDialog() {
-        binding.loadingLayout.visibility = View.VISIBLE
+        loadingDialog = DialogHelper.createLoadingDialog(requireContext(), layoutInflater)
+        loadingDialog.show()
     }
 
     override fun dismissLoadingDialog() {
-        binding.loadingLayout.visibility = View.INVISIBLE
+        loadingDialog.dismiss()
     }
 }

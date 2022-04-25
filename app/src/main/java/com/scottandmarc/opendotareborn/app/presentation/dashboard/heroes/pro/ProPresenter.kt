@@ -8,9 +8,9 @@ class ProPresenter(
 
     private var view: ProContract.View? = null
     private var heroHeaderAscending = false
-    private var pickHeaderAscending = true
-    private var banHeaderAscending = true
-    private var winHeaderAscending = true
+    private var pickHeaderAscending = false
+    private var banHeaderAscending = false
+    private var winHeaderAscending = false
 
     override fun onHeroHeaderClicked() {
         val heroHeaderSorted = if (heroHeaderAscending) {
