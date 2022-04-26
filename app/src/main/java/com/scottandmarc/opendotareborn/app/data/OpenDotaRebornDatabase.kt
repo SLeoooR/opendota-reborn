@@ -13,7 +13,7 @@ import com.scottandmarc.opendotareborn.toolbox.helpers.Converters
         LocalPlayer::class,
         LocalHeroInfo::class,
     ],
-    version = 14,
+    version = 16,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

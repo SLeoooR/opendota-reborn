@@ -27,7 +27,7 @@ data class LocalPlayer (
     val leaderboardRank: Int?,
 
     @Embedded
-    val mmrEstimate: LocalMMREstimate,
+    val mmrEstimate: LocalMMREstimate?,
 
     @Embedded
     val profile: LocalProfile,
@@ -51,7 +51,7 @@ data class LocalPlayer (
         val name: String?,
 
         @ColumnInfo(name = "plus")
-        val plus: Boolean,
+        val plus: Boolean?,
 
         @ColumnInfo(name = "cheese")
         val cheese: Int,

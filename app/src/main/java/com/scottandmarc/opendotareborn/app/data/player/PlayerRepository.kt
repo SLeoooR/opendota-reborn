@@ -98,13 +98,13 @@ class PlayerRepository(
             localPlayer.rankTier,
             localPlayer.leaderboardRank,
             Player.MMREstimate(
-                localPlayer.mmrEstimate.estimate
+                localPlayer.mmrEstimate?.estimate
             ),
             Player.Profile(
                 localPlayer.profile.accountId,
                 localPlayer.profile.personaName,
                 localPlayer.profile.name,
-                localPlayer.profile.plus,
+                localPlayer.profile.plus?: false,
                 localPlayer.profile.cheese,
                 localPlayer.profile.steamId,
                 localPlayer.profile.avatar,

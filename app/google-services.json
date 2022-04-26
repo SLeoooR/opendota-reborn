@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "419885593912",
+    "project_id": "opendota-reborn",
+    "storage_bucket": "opendota-reborn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419885593912:android:28db4eb8285ae8f388fdcd",
+        "android_client_info": {
+          "package_name": "com.scottandmarc.opendotareborn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419885593912-fqlr2ttgrcn7por6muna34jendps7qut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFuHKxN0_ST-O_3RmXSKRMJN5I6zw3wlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419885593912-fqlr2ttgrcn7por6muna34jendps7qut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -19,7 +19,7 @@ data class RemotePlayer(
     val leaderboardRank: Int?,
 
     @SerializedName("mmr_estimate")
-    val mmrEstimate: RemoteMMREstimate,
+    val mmrEstimate: RemoteMMREstimate?,
 
     @SerializedName("profile")
     val profile: RemoteProfile,
@@ -40,7 +40,7 @@ data class RemotePlayer(
         val name: String?,
 
         @SerializedName("plus")
-        val plus: Boolean,
+        val plus: Boolean?,
 
         @SerializedName("cheese")
         val cheese: Int,

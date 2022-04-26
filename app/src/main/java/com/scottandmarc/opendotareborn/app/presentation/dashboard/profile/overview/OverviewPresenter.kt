@@ -82,13 +82,21 @@ class OverviewPresenter(
             view?.showProfilePic(player.profile.avatarFull)
             view?.showPlayerName(player.profile.personaName)
 
-            val rankPicURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${player.rankTier.toString()[0]}.png"
+            val rankPicURL = if (player.rankTier != null) {
+                "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${player.rankTier.toString()[0]}.png"
+            } else {
+                "https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_0.png"
+            }
             val starsPicURL = "https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${player.rankTier.toString()[1]}.png"
             view?.showPlayerRankPic(rankPicURL, starsPicURL)
             view?.showPlayerWins(player.winLose.win)
             view?.showPlayerLosses(player.winLose.lose)
 
-            val winRate = player.winLose.win.toFloat() / (player.winLose.win.toFloat() + player.winLose.lose.toFloat())
+            val winRate = if ((player.winLose.win + player.winLose.lose) != 0) {
+                player.winLose.win.toFloat() / (player.winLose.win.toFloat() + player.winLose.lose.toFloat())
+            } else {
+                0F
+            }
             view?.showPlayerWinRate(winRate * 100)
         }
 
