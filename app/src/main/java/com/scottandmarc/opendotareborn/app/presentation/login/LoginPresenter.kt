@@ -64,6 +64,14 @@ class LoginPresenter(
         }
     }
 
+    override fun onSearchBtnClick() {
+        view?.navigateToSearchPlayers()
+    }
+
+    override fun onLoginViaOpenDotaBtnClick() {
+        view?.navigateToOpenDotaLogin()
+    }
+
     override fun onViewReady(view: LoginContract.View) {
         this.view = view
     }

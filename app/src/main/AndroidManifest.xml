@@ -15,6 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenDotaReborn">
         <activity
+            android:name=".app.presentation.login.search.SearchActivity"
+            android:exported="false"
+            android:parentActivityName=".app.presentation.login.LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.presentation.login.LoginActivity" />
+        </activity>
+        <activity
             android:name=".app.presentation.dashboard.search.SearchedPlayerActivity"
             android:exported="false"
             android:parentActivityName=".app.presentation.dashboard.UserDashboardActivity">

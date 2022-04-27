@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".app.presentation.dashboard.search.SearchFragment"
+    android:background="@color/app_background_color"
+    tools:ignore="HardcodedText"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:id="@+id/tbSearchPlayer"
+        android:layout_width="match_parent"
+        app:contentInsetStart="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="@color/app_foreground_color" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:imeOptions="actionDone"
+            android:id="@+id/etSearchPlayerQuery"
+            android:background="@color/app_card_color"
+            android:padding="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:hint="e.g. Topson"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grey"
+            android:inputType="text" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_search"
+            android:padding="8dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_corner_button" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.recyclerview.widget.RecyclerView
+        tools:listitem="@layout/search_list_item"
+        android:id="@+id/rvSearches"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        android:background="@color/app_card_color" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
