@@ -1,2 +1,2 @@
 # Sample
-![Alt Text](https://imgur.com/a/lYcuBT0)
+![Alt Text](https://i.imgur.com/1Z7N5SZ.gif)
