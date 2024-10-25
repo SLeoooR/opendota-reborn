@@ -1,21 +1,17 @@
 package com.scottandmarc.opendotareborn.app.presentation.dashboard.teams
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scottandmarc.opendotareborn.R
-import com.scottandmarc.opendotareborn.app.domain.entities.ProcessedRecentMatch
 import com.scottandmarc.opendotareborn.app.domain.entities.Team
-import com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.overview.RecentMatchesListAdapter
 import com.scottandmarc.opendotareborn.databinding.FragmentTeamsBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
-import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
 class TeamsFragment : Fragment(), TeamsContract.View {

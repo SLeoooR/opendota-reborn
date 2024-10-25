@@ -2,7 +2,11 @@ package com.scottandmarc.opendotareborn.app.presentation.dashboard.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
@@ -18,8 +22,6 @@ import com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.totals
 import com.scottandmarc.opendotareborn.databinding.FragmentProfileBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
-import com.scottandmarc.opendotareborn.toolbox.helpers.NetworkUtils
-import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
 class ProfileFragment(
     private val accountId: Int

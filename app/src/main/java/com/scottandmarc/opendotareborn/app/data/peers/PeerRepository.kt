@@ -3,7 +3,6 @@ package com.scottandmarc.opendotareborn.app.data.peers
 import android.util.Log
 import com.scottandmarc.opendotareborn.app.domain.entities.Peer
 import com.scottandmarc.opendotareborn.app.domain.gateways.PeerGateway
-import java.lang.Exception
 
 class PeerRepository(
     private val peerEndpoints: PeerEndpoints

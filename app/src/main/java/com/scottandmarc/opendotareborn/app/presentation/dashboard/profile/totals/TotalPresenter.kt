@@ -7,7 +7,6 @@ import com.scottandmarc.opendotareborn.app.domain.entities.Total
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class TotalPresenter(
     private val accountId: Int,

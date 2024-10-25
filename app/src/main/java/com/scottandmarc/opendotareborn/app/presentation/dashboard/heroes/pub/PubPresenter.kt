@@ -1,7 +1,6 @@
 package com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.pub
 
 import com.scottandmarc.opendotareborn.app.domain.entities.HeroStats
-import java.lang.Exception
 
 class PubPresenter(
     private val heroesStats: List<HeroStats>

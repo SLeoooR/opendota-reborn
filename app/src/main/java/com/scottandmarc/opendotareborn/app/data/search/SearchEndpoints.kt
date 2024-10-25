@@ -2,7 +2,6 @@ package com.scottandmarc.opendotareborn.app.data.search
 
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.scottandmarc.opendotareborn.app.data.teams.RemoteTeam
 import com.scottandmarc.opendotareborn.app.data.teams.TeamDeserializer
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -3,7 +3,6 @@ package com.scottandmarc.opendotareborn.app.data.total
 import android.util.Log
 import com.scottandmarc.opendotareborn.app.domain.entities.Total
 import com.scottandmarc.opendotareborn.app.domain.gateways.TotalGateway
-import java.lang.Exception
 
 class TotalRepository(
     private val totalEndpoints: TotalEndpoints

@@ -3,7 +3,6 @@ package com.scottandmarc.opendotareborn.app.data.heroStats
 import android.util.Log
 import com.scottandmarc.opendotareborn.app.domain.entities.HeroStats
 import com.scottandmarc.opendotareborn.app.domain.gateways.HeroStatsGateway
-import java.lang.Exception
 
 class HeroStatsRepository(
     private val heroStatsEndpoints: HeroStatsEndpoints

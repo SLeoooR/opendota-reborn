@@ -1,20 +1,14 @@
 package com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.pub
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.HeroStats
-import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.turbo.TurboContract
-import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.turbo.TurboHeroesListAdapter
-import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.turbo.TurboPresenter
 import com.scottandmarc.opendotareborn.databinding.FragmentPubBinding
-import com.scottandmarc.opendotareborn.databinding.FragmentTurboBinding
 import com.squareup.picasso.Picasso
 
 class PubFragment(

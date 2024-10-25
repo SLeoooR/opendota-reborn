@@ -1,8 +1,7 @@
 package com.scottandmarc.opendotareborn.toolbox.helpers
 
-import java.lang.Exception
 import java.sql.Timestamp
-import java.util.*
+import java.util.Date
 
 object TimeHelper {
     fun numTimeAgo(lastDate: Int): String {

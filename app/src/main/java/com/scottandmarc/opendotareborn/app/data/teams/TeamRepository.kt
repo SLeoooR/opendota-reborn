@@ -3,7 +3,6 @@ package com.scottandmarc.opendotareborn.app.data.teams
 import android.util.Log
 import com.scottandmarc.opendotareborn.app.domain.entities.Team
 import com.scottandmarc.opendotareborn.app.domain.gateways.TeamGateway
-import java.lang.Exception
 
 class TeamRepository(
     private val teamService: TeamEndpoints

@@ -13,7 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.scottandmarc.opendotareborn.app.data.player.PlayerRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
 import com.scottandmarc.opendotareborn.app.presentation.dashboard.UserDashboardActivity
-import com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.ProfileFragment
 import com.scottandmarc.opendotareborn.databinding.FragmentChangeCodeBottomSheetBinding
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper

@@ -7,7 +7,6 @@ import com.scottandmarc.opendotareborn.app.domain.entities.Peer
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class PeersPresenter(
     private val accountId: Int,

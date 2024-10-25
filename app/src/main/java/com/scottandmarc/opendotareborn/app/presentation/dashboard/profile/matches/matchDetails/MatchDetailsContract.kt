@@ -1,6 +1,5 @@
 package com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.matches.matchDetails
 
-import com.scottandmarc.opendotareborn.app.domain.entities.MatchDetails
 import com.scottandmarc.opendotareborn.app.domain.entities.MatchPlayer
 import com.scottandmarc.opendotareborn.toolbox.mvp.BasePresenter
 import com.scottandmarc.opendotareborn.toolbox.mvp.BaseView

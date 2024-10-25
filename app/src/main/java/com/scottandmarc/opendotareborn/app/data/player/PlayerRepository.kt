@@ -3,7 +3,6 @@ package com.scottandmarc.opendotareborn.app.data.player
 import android.util.Log
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
 import com.scottandmarc.opendotareborn.app.domain.gateways.PlayerGateway
-import java.lang.Exception
 
 class PlayerRepository(
     private val playerDao: PlayerDao,

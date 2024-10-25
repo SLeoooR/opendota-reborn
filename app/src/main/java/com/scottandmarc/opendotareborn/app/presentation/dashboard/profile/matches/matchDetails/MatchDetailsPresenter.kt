@@ -8,7 +8,6 @@ import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 import com.scottandmarc.opendotareborn.toolbox.helpers.TimeHelper
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class MatchDetailsPresenter(
     private val matchId: Long,

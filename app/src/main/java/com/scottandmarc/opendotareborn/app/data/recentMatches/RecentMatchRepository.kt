@@ -3,7 +3,6 @@ package com.scottandmarc.opendotareborn.app.data.recentMatches
 import android.util.Log
 import com.scottandmarc.opendotareborn.app.domain.entities.RecentMatch
 import com.scottandmarc.opendotareborn.app.domain.gateways.RecentMatchGateway
-import java.lang.Exception
 
 class RecentMatchRepository(
     private val recentMatchService: RecentMatchEndpoints

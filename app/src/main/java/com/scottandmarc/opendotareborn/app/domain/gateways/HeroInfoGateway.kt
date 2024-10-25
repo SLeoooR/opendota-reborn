@@ -1,6 +1,5 @@
 package com.scottandmarc.opendotareborn.app.domain.gateways
 
-import com.scottandmarc.opendotareborn.app.data.hero.info.LocalHeroInfo
 import com.scottandmarc.opendotareborn.app.domain.entities.HeroInfo
 
 interface HeroInfoGateway {

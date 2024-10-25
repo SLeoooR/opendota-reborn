@@ -5,7 +5,6 @@ import com.scottandmarc.opendotareborn.app.data.heroStats.HeroStatsRepository
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class HeroesPresenter(
     private val coroutineScopeProvider: CoroutineScopeProvider,

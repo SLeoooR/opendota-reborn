@@ -1,6 +1,5 @@
 package com.scottandmarc.opendotareborn.app.presentation.dashboard.profile.matches.matchDetails
 
-import android.R.attr.label
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context

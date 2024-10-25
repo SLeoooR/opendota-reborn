@@ -15,7 +15,7 @@ import com.scottandmarc.opendotareborn.databinding.SearchListItemBinding
 import com.scottandmarc.opendotareborn.toolbox.helpers.TimeHelper.numTimeAgoUsingDate
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 
 class SearchListAdapter(

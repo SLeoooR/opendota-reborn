@@ -2,14 +2,10 @@ package com.scottandmarc.opendotareborn.app.presentation.dashboard.search
 
 import android.util.Log
 import com.scottandmarc.opendotareborn.app.data.search.SearchRepository
-import com.scottandmarc.opendotareborn.app.data.teams.TeamRepository
 import com.scottandmarc.opendotareborn.app.domain.entities.Search
-import com.scottandmarc.opendotareborn.app.domain.entities.Team
-import com.scottandmarc.opendotareborn.app.presentation.dashboard.teams.TeamsContract
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class SearchPresenter(
     private val coroutineScopeProvider: CoroutineScopeProvider,

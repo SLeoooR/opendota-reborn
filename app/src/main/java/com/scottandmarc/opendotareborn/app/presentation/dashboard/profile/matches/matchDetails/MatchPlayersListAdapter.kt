@@ -14,8 +14,6 @@ import com.scottandmarc.opendotareborn.app.domain.entities.MatchPlayer
 import com.scottandmarc.opendotareborn.databinding.PlayerListItemBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.squareup.picasso.Picasso
-import java.text.NumberFormat
-import java.util.*
 import kotlin.math.log10
 import kotlin.math.pow
 import kotlin.math.roundToInt

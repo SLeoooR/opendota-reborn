@@ -12,7 +12,11 @@ import com.scottandmarc.opendotareborn.databinding.ActivityStartUpBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class StartUpActivity : AppCompatActivity(), CoroutineScope {

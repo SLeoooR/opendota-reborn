@@ -1,9 +1,7 @@
 package com.scottandmarc.opendotareborn.app.presentation.login
 
 import android.util.Log
-import com.scottandmarc.opendotareborn.app.domain.entities.HeroInfo
 import com.scottandmarc.opendotareborn.app.domain.entities.Player
-import com.scottandmarc.opendotareborn.app.domain.gateways.HeroInfoGateway
 import com.scottandmarc.opendotareborn.app.domain.gateways.PlayerGateway
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker

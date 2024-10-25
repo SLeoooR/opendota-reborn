@@ -24,7 +24,6 @@ import com.scottandmarc.opendotareborn.app.data.teams.TeamRepository
 import com.scottandmarc.opendotareborn.app.data.teams.createTeamService
 import com.scottandmarc.opendotareborn.app.data.total.TotalRepository
 import com.scottandmarc.opendotareborn.app.data.total.createTotalService
-import com.scottandmarc.opendotareborn.app.domain.gateways.RecentMatchGateway
 import com.scottandmarc.opendotareborn.toolbox.helpers.CoroutineScopeProvider
 
 object DependencyInjector {

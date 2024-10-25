@@ -1,13 +1,13 @@
 package com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.HeroStats
 import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.pro.ProFragment

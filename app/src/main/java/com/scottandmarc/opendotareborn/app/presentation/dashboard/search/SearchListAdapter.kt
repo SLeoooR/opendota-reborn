@@ -4,17 +4,15 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.Search
-import com.scottandmarc.opendotareborn.app.presentation.dashboard.UserDashboardActivity
 import com.scottandmarc.opendotareborn.databinding.SearchListItemBinding
 import com.scottandmarc.opendotareborn.toolbox.helpers.TimeHelper.numTimeAgoUsingDate
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 
 class SearchListAdapter(

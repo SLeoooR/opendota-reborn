@@ -3,7 +3,6 @@ package com.scottandmarc.opendotareborn.app.data.matches
 import android.util.Log
 import com.scottandmarc.opendotareborn.app.domain.entities.Match
 import com.scottandmarc.opendotareborn.app.domain.gateways.MatchGateway
-import java.lang.Exception
 
 class MatchRepository(
     private val matchService: MatchEndpoints
