@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.ProcessedRecentMatch
 import com.scottandmarc.opendotareborn.databinding.FragmentOverviewBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
@@ -52,7 +55,13 @@ class OverviewFragment(
     }
 
     override fun showProfilePic(profilePicURL: String) {
-        Picasso.get().load(profilePicURL).into(binding.ivPlayerProfilePic)
+        val circularProgressDrawable = CircularProgressDrawable(requireContext()).apply {
+            strokeWidth = 5F
+            centerRadius = 15F
+            setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.white))
+            start()
+        }
+        Picasso.get().load(profilePicURL).error(R.drawable.ic_question_mark).placeholder(circularProgressDrawable).into(binding.ivPlayerProfilePic)
     }
 
     override fun showPlayerRankPic(rankPicURL: String, starsPicURL: String) {
@@ -98,5 +107,17 @@ class OverviewFragment(
 
         rvPlayerHeroes.layoutManager = LinearLayoutManager(this.context)
         rvPlayerHeroes.adapter = recentMatchesListAdapter
+    }
+
+    override fun showOkayDialog(title: String, message: String, buttonText: String) {
+        DialogHelper.createRetryDialog(
+            context = requireContext(),
+            title = title,
+            message = message,
+            buttonText = buttonText,
+            buttonOnClick = { dialog, _ ->
+                dialog.dismiss()
+            }
+        ).show()
     }
 }

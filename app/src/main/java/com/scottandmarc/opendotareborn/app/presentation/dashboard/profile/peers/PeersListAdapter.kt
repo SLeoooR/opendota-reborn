@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.Peer
 import com.scottandmarc.opendotareborn.app.presentation.dashboard.search.SearchedPlayerActivity
@@ -62,7 +63,14 @@ class PeersListAdapter(
             }
             val peerWinRateString = String.format("%.2f", peerWinRate) + "%"
 
-            Picasso.get().load(peer.avatarFull).into(viewHolder.binding.ivPLayerAvatar)
+            val circularProgressDrawable = CircularProgressDrawable(viewHolder.itemView.context).apply {
+                strokeWidth = 5F
+                centerRadius = 15F
+                setColorSchemeColors(ContextCompat.getColor(viewHolder.itemView.context, R.color.white))
+                start()
+            }
+
+            Picasso.get().load(peer.avatarFull).error(R.drawable.ic_question_mark).placeholder(circularProgressDrawable).into(viewHolder.binding.ivPLayerAvatar)
             viewHolder.binding.tvPeerName.text = peer.personaname
             viewHolder.binding.tvPeerMP.text = peer.games.toString()
             viewHolder.binding.tvPeerWinRate.text = peerWinRateString

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.Team
 import com.scottandmarc.opendotareborn.databinding.TeamListItemBinding
@@ -41,10 +42,17 @@ class TeamsListAdapter(
             val rankString = intToOrdinal(position + 1)
             viewHolder.binding.tvTeamRank.text = rankString
 
+            val circularProgressDrawable = CircularProgressDrawable(viewHolder.itemView.context).apply {
+                strokeWidth = 5F
+                centerRadius = 15F
+                setColorSchemeColors(ContextCompat.getColor(viewHolder.itemView.context, R.color.white))
+                start()
+            }
+
             if (team.logoURL == null) {
                 viewHolder.binding.ivTeamLogo.setImageResource(R.drawable.ic_question_mark)
             } else {
-                Picasso.get().load(team.logoURL).error(R.drawable.ic_question_mark).into(viewHolder.binding.ivTeamLogo)
+                Picasso.get().load(team.logoURL).error(R.drawable.ic_question_mark).placeholder(circularProgressDrawable).into(viewHolder.binding.ivTeamLogo)
             }
 
             if (team.name == "") {

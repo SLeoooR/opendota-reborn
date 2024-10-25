@@ -146,4 +146,16 @@ class PeersFragment(
     override fun dismissLoadingDialog() {
         binding.loadingLayout.visibility = View.INVISIBLE
     }
+
+    override fun showOkayDialog(title: String, message: String, buttonText: String) {
+        DialogHelper.createRetryDialog(
+            context = requireContext(),
+            title = title,
+            message = message,
+            buttonText = buttonText,
+            buttonOnClick = { dialog, _ ->
+                dialog.dismiss()
+            }
+        ).show()
+    }
 }

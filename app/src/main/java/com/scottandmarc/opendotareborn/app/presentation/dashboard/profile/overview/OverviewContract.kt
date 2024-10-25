@@ -20,6 +20,7 @@ interface OverviewContract {
 
         fun setProcessedRecentMatches(processedRecentMatches: MutableList<ProcessedRecentMatch>)
         fun updateRv()
+        fun showOkayDialog(title: String, message: String, buttonText: String)
     }
 
     interface Presenter : BasePresenter<View> {

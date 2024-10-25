@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.scottandmarc.opendotareborn">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -21,6 +20,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".app.presentation.login.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".app.presentation.dashboard.profile.matches.matchDetails.MatchDetailsActivity"
+            android:exported="false"
+            android:parentActivityName=".app.presentation.dashboard.UserDashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.presentation.dashboard.UserDashboardActivity" />
         </activity>
         <activity
             android:name=".app.presentation.dashboard.search.SearchedPlayerActivity"

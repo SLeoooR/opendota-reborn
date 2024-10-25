@@ -8,6 +8,8 @@ import com.scottandmarc.opendotareborn.app.data.hero.player.PlayerHeroRepository
 import com.scottandmarc.opendotareborn.app.data.hero.player.createPlayerHeroService
 import com.scottandmarc.opendotareborn.app.data.heroStats.HeroStatsRepository
 import com.scottandmarc.opendotareborn.app.data.heroStats.createHeroStatsService
+import com.scottandmarc.opendotareborn.app.data.matchDetails.MatchDetailsRepository
+import com.scottandmarc.opendotareborn.app.data.matchDetails.createMatchDetailsService
 import com.scottandmarc.opendotareborn.app.data.matches.MatchRepository
 import com.scottandmarc.opendotareborn.app.data.matches.createMatchService
 import com.scottandmarc.opendotareborn.app.data.peers.PeerRepository
@@ -98,6 +100,12 @@ object DependencyInjector {
     fun provideHeroStatsRepository() : HeroStatsRepository {
         return HeroStatsRepository(
             createHeroStatsService()
+        )
+    }
+
+    fun provideMatchDetailsRepository() : MatchDetailsRepository {
+        return MatchDetailsRepository(
+            createMatchDetailsService()
         )
     }
 }

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.presentation.dashboard.UserDashboardActivity"
+    android:background="@color/app_background_color">
+
+    <androidx.appcompat.widget.Toolbar
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:id="@+id/tbMatchDetails"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/app_foreground_color" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/app_background_color"
+        tools:ignore="HardcodedText"
+        app:layout_constraintTop_toBottomOf="@+id/tbMatchDetails"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:context=".app.presentation.dashboard.profile.overview.OverviewFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llMatchOverview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_foreground_color"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/rounded_corner_button"
+                    android:elevation="20dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvMatchId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="10dp"
+                            android:background="@drawable/rounded_corner"
+                            android:padding="4dp"
+                            android:textAlignment="center"
+                            tools:text="7428565743"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:layout_gravity="center"
+                            android:layout_margin="16dp"/>
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/ivCopyId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_copy"
+                            android:layout_gravity="end"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:background="@android:color/transparent"
+                            android:layout_margin="16dp"/>
+
+                    </FrameLayout>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGameMode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            tools:text="All Draft"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:layout_marginBottom="4dp"
+                            android:textAlignment="center" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvRegion"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            tools:text="Singapore"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:layout_marginBottom="4dp"
+                            android:textAlignment="center" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDuration"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            tools:text="00:38:26"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textAlignment="center" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvLastPlayed"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            tools:text="2 weeks ago"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textAlignment="center" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRadiantVictory"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Radiant Victory"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="22sp"
+                        tools:visibility="visible"
+                        android:visibility="invisible" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDireVictory"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dire Victory"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="8dp"
+                        android:textSize="22sp"
+                        android:visibility="invisible" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRadiantKills"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        tools:text="123"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/green"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="24sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDireKills"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        tools:text="123"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/red"
+                        android:layout_marginStart="8dp"
+                        android:textSize="24sp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llRadiant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/llMatchOverview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical"
+                android:layout_margin="8dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="RADIANT"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:padding="8dp"
+                    android:background="@color/app_foreground_color"/>
+
+                <include
+                    android:id="@+id/radiantPlayers"
+                    layout="@layout/match_player_list" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/llRadiant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical"
+                android:layout_margin="8dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="DIRE"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:padding="8dp"
+                    android:background="@color/app_foreground_color"/>
+
+                <include
+                    android:id="@+id/direPlayers"
+                    layout="@layout/match_player_list" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        tools:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/tbMatchDetails"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/app_background_color">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

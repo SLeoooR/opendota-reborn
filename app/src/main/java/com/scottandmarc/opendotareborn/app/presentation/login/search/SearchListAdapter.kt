@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.Search
 import com.scottandmarc.opendotareborn.databinding.SearchListItemBinding
@@ -59,7 +60,14 @@ class SearchListAdapter(
                 viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.app_card_color))
             }
 
-            Picasso.get().load(search.avatarfull).error(R.drawable.ic_question_mark).into(viewHolder.binding.ivPlayerProfilePic)
+            val circularProgressDrawable = CircularProgressDrawable(viewHolder.itemView.context).apply {
+                strokeWidth = 5F
+                centerRadius = 15F
+                setColorSchemeColors(ContextCompat.getColor(viewHolder.itemView.context, R.color.white))
+                start()
+            }
+
+            Picasso.get().load(search.avatarfull).error(R.drawable.ic_question_mark).placeholder(circularProgressDrawable).into(viewHolder.binding.ivPlayerProfilePic)
 
             val playerNameID = "${search.personaname} (${search.accountId})"
             viewHolder.binding.tvPlayerNameID.text = playerNameID

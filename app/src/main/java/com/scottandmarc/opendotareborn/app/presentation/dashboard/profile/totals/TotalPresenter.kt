@@ -49,7 +49,11 @@ class TotalPresenter(
                 view?.dismissLoadingDialog()
             } catch (e: Exception) {
                 Log.d("error", e.localizedMessage?: "")
-                throw e
+                view?.showOkayDialog(
+                    title = "Error",
+                    message = e.localizedMessage ?: "",
+                    buttonText = "Okay"
+                )
             }
         }
     }

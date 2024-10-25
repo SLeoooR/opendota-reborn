@@ -128,7 +128,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         presenter = LoginPresenter(
             DependencyInjector.provideCoroutineScopeProvider(),
             DependencyInjector.providePlayerRepository(applicationContext),
-            DependencyInjector.provideHeroInfoRepository(applicationContext),
             NetworkConnectionChecker(applicationContext)
         )
     }

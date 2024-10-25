@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.databinding.PlayerHeroListItemBinding
@@ -48,8 +49,15 @@ class PlayerHeroesListAdapter(
                 0.0F
             }
 
+            val circularProgressDrawable = CircularProgressDrawable(viewHolder.itemView.context).apply {
+                strokeWidth = 5F
+                centerRadius = 15F
+                setColorSchemeColors(ContextCompat.getColor(viewHolder.itemView.context, R.color.white))
+                start()
+            }
+
             val heroPicURL = "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/${heroInfo.name.substring(14)}.png"
-            Picasso.get().load(heroPicURL).into(viewHolder.binding.ivPLayerHeroIcon)
+            Picasso.get().load(heroPicURL).error(R.drawable.ic_question_mark).placeholder(circularProgressDrawable).into(viewHolder.binding.ivPLayerHeroIcon)
             viewHolder.binding.tvPlayerHeroName.text = heroInfo.localizedName
             viewHolder.binding.tvPlayerHeroMP.text = playerHero.games.toString()
 

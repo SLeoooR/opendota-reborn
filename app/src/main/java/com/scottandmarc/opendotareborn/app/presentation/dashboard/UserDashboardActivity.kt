@@ -3,11 +3,11 @@ package com.scottandmarc.opendotareborn.app.presentation.dashboard
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.presentation.dashboard.heroes.HeroesFragment
@@ -35,6 +35,10 @@ class UserDashboardActivity : AppCompatActivity(),
         // Start Toolbar Views
         setSupportActionBar(bindingNavView.activityUserDashboard.tbUserDashboardView)
         supportActionBar?.title = ""
+
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {}
+        })
 
         val toggle = ActionBarDrawerToggle(this, bindingNavView.drawerLayout, bindingNavView.activityUserDashboard.tbUserDashboardView, R.string.nav_open, R.string.nav_close)
         toggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.white)
@@ -78,9 +82,5 @@ class UserDashboardActivity : AppCompatActivity(),
         }
         bindingNavView.drawerLayout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    override fun onBackPressed() {
-        // super.onBackPressed()
     }
 }

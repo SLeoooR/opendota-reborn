@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class RemoteMatch(
     @SerializedName("match_id")
-    val matchId: String,
+    val matchId: Long,
 
     @SerializedName("player_slot")
     val playerSlot: Int,

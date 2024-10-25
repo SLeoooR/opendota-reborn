@@ -17,6 +17,8 @@ interface MatchesContract {
 
         fun showLoadingDialog()
         fun dismissLoadingDialog()
+
+        fun showOkayDialog(title: String, message: String, buttonText: String)
     }
 
     interface Presenter: BasePresenter<View> {

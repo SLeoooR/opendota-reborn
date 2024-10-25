@@ -18,6 +18,8 @@ interface PlayerHeroesContract {
         fun toggleButtons()
         fun setupBtnNext()
         fun setupBtnPrev()
+
+        fun showOkayDialog(title: String, message: String, buttonText: String)
     }
 
     interface Presenter: BasePresenter<View> {

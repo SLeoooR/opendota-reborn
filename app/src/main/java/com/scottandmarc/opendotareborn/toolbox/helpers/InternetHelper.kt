@@ -8,6 +8,7 @@ import android.net.NetworkCapabilities.*
 import android.os.Build
 
 object NetworkUtils {
+    @Suppress("DEPRECATION")
     fun Context?.isNetworkAvailable(): Boolean {
         return if (this == null) false
         else {

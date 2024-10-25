@@ -1,7 +1,7 @@
 package com.scottandmarc.opendotareborn.app.domain.entities
 
 data class Match(
-    val matchId: String,
+    val matchId: Long,
     val playerSlot: Int,
     val radiantWin: Boolean,
     val duration: Int,

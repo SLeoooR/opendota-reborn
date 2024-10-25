@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.scottandmarc.opendotareborn.R
 import com.scottandmarc.opendotareborn.app.domain.entities.ProcessedRecentMatch
 import com.scottandmarc.opendotareborn.databinding.RecentMatchListItemBinding
@@ -46,10 +47,17 @@ class RecentMatchesListAdapter(
 
             Log.d("processedMatches", processedRecentMatch.toString())
 
+            val circularProgressDrawable = CircularProgressDrawable(viewHolder.itemView.context).apply {
+                strokeWidth = 5F
+                centerRadius = 15F
+                setColorSchemeColors(ContextCompat.getColor(viewHolder.itemView.context, R.color.white))
+                start()
+            }
+
             if (processedRecentMatch.heroId != 0) {
                 val heroInfo = heroInfoRepository.getHeroInfoWhere(processedRecentMatch.heroId)
                 val heroIconPicURL = "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/${heroInfo.name.substring(14)}.png"
-                Picasso.get().load(heroIconPicURL).into(viewHolder.binding.ivHeroIcon)
+                Picasso.get().load(heroIconPicURL).error(R.drawable.ic_question_mark).placeholder(circularProgressDrawable).into(viewHolder.binding.ivHeroIcon)
             } else {
                 viewHolder.binding.ivHeroIcon.setImageResource(R.drawable.ic_question_mark)
             }

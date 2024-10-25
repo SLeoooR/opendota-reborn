@@ -12,13 +12,11 @@ import kotlinx.coroutines.launch
 class LoginPresenter(
     private val coroutineScopeProvider: CoroutineScopeProvider,
     private val playerGateway: PlayerGateway,
-    private val heroInfoGateway: HeroInfoGateway,
     private val networkConnectionChecker: NetworkConnectionChecker
 ) : LoginContract.Presenter {
     private var view: LoginContract.View? = null
 
     private lateinit var playerData: Player
-    private lateinit var heroesInfo: List<HeroInfo>
 
     override fun onContinueBtnClick(accountId: Int) {
         coroutineScopeProvider.provide().launch {
@@ -28,7 +26,6 @@ class LoginPresenter(
 
                 if (networkConnectionChecker.isNetworkAvailable()) {
                     playerData = playerGateway.fetchPlayer(accountId)
-                    heroesInfo = heroInfoGateway.fetchHeroesInfo()
 
                     val playerNotExist =
                         playerData.trackedUntil == null &&
@@ -43,17 +40,11 @@ class LoginPresenter(
                     } else {
                         playerGateway.insert(playerData)
 
-                        heroesInfo.forEach {
-                            heroInfoGateway.insertHeroInfo(it)
-                        }
-
                         view?.navigateToProfile()
                     }
                 } else {
                     view?.displayToast("No internet connection")
                 }
-
-                Log.d("LocalHeroesInfo", heroInfoGateway.getHeroesInfo().toString())
 
                 view?.dismissLoadingDialog()
             } catch (e: Exception) {

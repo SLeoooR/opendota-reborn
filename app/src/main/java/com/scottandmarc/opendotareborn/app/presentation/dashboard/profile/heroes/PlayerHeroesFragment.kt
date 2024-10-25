@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scottandmarc.opendotareborn.app.domain.entities.PlayerHero
 import com.scottandmarc.opendotareborn.databinding.FragmentPlayerHeroesBinding
 import com.scottandmarc.opendotareborn.di.DependencyInjector
+import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper
 import com.scottandmarc.opendotareborn.toolbox.helpers.DialogHelper.Companion.createLoadingDialog
 import com.scottandmarc.opendotareborn.toolbox.retrofit.NetworkConnectionChecker
 
@@ -146,5 +147,17 @@ class PlayerHeroesFragment(
 
     override fun dismissLoadingDialog() {
         binding.loadingLayout.visibility = View.INVISIBLE
+    }
+
+    override fun showOkayDialog(title: String, message: String, buttonText: String) {
+        DialogHelper.createRetryDialog(
+            context = requireContext(),
+            title = title,
+            message = message,
+            buttonText = buttonText,
+            buttonOnClick = { dialog, _ ->
+                dialog.dismiss()
+            }
+        ).show()
     }
 }

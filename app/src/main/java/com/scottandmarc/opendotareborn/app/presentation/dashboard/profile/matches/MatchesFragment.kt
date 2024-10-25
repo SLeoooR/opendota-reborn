@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scottandmarc.opendotareborn.app.domain.entities.Match
 import com.scottandmarc.opendotareborn.databinding.FragmentMatchesBinding
@@ -146,5 +145,17 @@ class MatchesFragment(
 
     override fun dismissLoadingDialog() {
         binding.loadingLayout.visibility = View.INVISIBLE
+    }
+
+    override fun showOkayDialog(title: String, message: String, buttonText: String) {
+        DialogHelper.createRetryDialog(
+            context = requireContext(),
+            title = title,
+            message = message,
+            buttonText = buttonText,
+            buttonOnClick = { dialog, _ ->
+                dialog.dismiss()
+            }
+        ).show()
     }
 }
